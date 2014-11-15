@@ -1,20 +1,35 @@
 
 public class Student implements Comparable<Student> {
 
-	private String firstName, lastName, idNum, grade;	
+	private String firstName, lastName, idNum, grade;
+	private float majorGPA, totalGPA;
+	private int majorCrd, upperCrd, totalCrd;
+	private boolean gradQualified;
 	
 	public Student() {
 		this.setFirstName("");
 		this.setLastName("");
 		this.setIdNum("");
 		this.setGrade("");
+		this.setMajorGPA(0);
+		this.setTotalGPA(0);
+		this.setMajorCrd(0);
+		this.setUpperCrd(0);
+		this.setTotalCrd(0);
+		this.setGradQualified(false);
 	}
 	
-	public Student(String fn, String ln, String id, String g) {
+	public Student(String fn, String ln, String id, String g, float mG, float tG, int mC, int uC, int tC) {
 		this.setFirstName(fn.trim());
 		this.setLastName(ln.trim());
 		this.setIdNum(id.trim());
 		this.setGrade(g.trim());
+		this.setMajorGPA(mG);
+		this.setTotalGPA(tG);
+		this.setMajorCrd(mC);
+		this.setUpperCrd(uC);
+		this.setTotalCrd(tC);
+		this.setGradQualified(this.qualifyTest());
 	}
 	
 	public String getFirstName() {
@@ -48,6 +63,86 @@ public class Student implements Comparable<Student> {
 	public void setGrade(String g) {
 		this.grade = g;
 	}
+
+	public float getMajorGPA() {
+		return this.majorGPA;
+	}
+
+	public void setMajorGPA(float majorGPA) {
+		this.majorGPA = majorGPA;
+	}
+
+	public float getTotalGPA() {
+		return this.totalGPA;
+	}
+
+	public void setTotalGPA(float totalGPA) {
+		this.totalGPA = totalGPA;
+	}
+
+	public int getMajorCrd() {
+		return this.majorCrd;
+	}
+
+	public void setMajorCrd(int majorCrd) {
+		this.majorCrd = majorCrd;
+	}
+
+	public int getUpperCrd() {
+		return this.upperCrd;
+	}
+
+	public void setUpperCrd(int upperCrd) {
+		this.upperCrd = upperCrd;
+	}
+
+	public int getTotalCrd() {
+		return this.totalCrd;
+	}
+
+	public void setTotalCrd(int totalCrd) {
+		this.totalCrd = totalCrd;
+	}
+
+	public boolean isGradQualified() {
+		return this.gradQualified;
+	}
+
+	public void setGradQualified(boolean gradQualified) {
+		this.gradQualified = gradQualified;
+	}
+	
+	//Checks if student is qualified to graduate
+	public boolean qualifyTest() {
+		boolean q = false;
+		if ((this.getMajorGPA() >= 2.0) && (this.getTotalGPA() >= 2.0) && (this.getMajorCrd() >= 45) && (this.getUpperCrd() >= 45) && (this.getTotalCrd() >= 120)) {
+			q = true;
+		}
+		else {
+			q = false;
+		}
+		return q;
+	}
+	
+	public String unqualReason() {
+		String reason = "";
+		if (this.getMajorCrd() < 45) {
+			reason = reason + "Reason: Less than 45 Major Credits\n";
+		}
+		if (this.getUpperCrd() < 45) {
+			reason = reason + "Reason: Less than 45 Upper Level Credits\n";
+		}
+		if (this.getTotalCrd() < 120) {
+			reason = reason + "Reason: Less than 120 Total Credits\n";
+		}
+		if (this.getMajorGPA() < 2.0) {
+			reason = reason + "Reason:  Major GPA is less than 2.0\n";
+		}
+		if (this.getTotalGPA() < 2.0) {
+			reason = reason + "Reason: Total GPA is less than 2.0\n";
+		}
+		return reason;
+	}//End unqualReason()
 
 	@Override
 	public int compareTo(Student s) {
