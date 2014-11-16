@@ -127,19 +127,19 @@ public class Student implements Comparable<Student> {
 	public String unqualReason() {
 		String reason = "";
 		if (this.getMajorCrd() < 45) {
-			reason = reason + "Reason: Less than 45 Major Credits\n";
+			reason = reason + "Less than 45 Major Credits\n";
 		}
 		if (this.getUpperCrd() < 45) {
-			reason = reason + "Reason: Less than 45 Upper Level Credits\n";
+			reason = reason + "Less than 45 Upper Level Credits\n";
 		}
 		if (this.getTotalCrd() < 120) {
-			reason = reason + "Reason: Less than 120 Total Credits\n";
+			reason = reason + "Less than 120 Total Credits\n";
 		}
 		if (this.getMajorGPA() < 2.0) {
-			reason = reason + "Reason:  Major GPA is less than 2.0\n";
+			reason = reason + "Major GPA is less than 2.0\n";
 		}
 		if (this.getTotalGPA() < 2.0) {
-			reason = reason + "Reason: Total GPA is less than 2.0\n";
+			reason = reason + "Total GPA is less than 2.0\n";
 		}
 		return reason;
 	}//End unqualReason()
