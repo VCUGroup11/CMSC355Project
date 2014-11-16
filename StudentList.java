@@ -21,8 +21,11 @@ public class StudentList implements Set<Student> {
         
         public StudentList(File file) {
                 HashSet<Student> list = new HashSet<Student>();
+                FileIO fIO = new FileIO(file);
+                list = fIO.readFile();
+                fIO.stop();
                 
-                try{
+               /* try{
                     Scanner input = new Scanner(file);
                     while(input.hasNextLine()) {
                         Scanner line = new Scanner(input.nextLine());
@@ -42,7 +45,7 @@ public class StudentList implements Set<Student> {
                     }
                 }catch(Exception e) {
                     //do nothing
-                }
+                }*/
 		this.setStudentList(list);
 	}
 
