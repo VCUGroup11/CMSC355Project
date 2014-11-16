@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -94,10 +95,10 @@ public class FileIO {
 	 * Reads files based on FileIO object. Use for reading multiple files with the same object,
 	 * or with different templates
 	 * @return
-	 * StudentList containing all the students in the file.
+	 * HashSet containing all the students in the file.
 	 */
-	public StudentList readFile() {
-		StudentList sl = new StudentList();
+	public HashSet<Student> readFile() {
+		HashSet<Student> sl = new HashSet<>();
 		
 		String[] template = s.nextLine().split(","); //read template line (first line of document)
 		setTemplate(template);
@@ -131,8 +132,8 @@ public class FileIO {
 	 * @throws FileNotFoundException 
 	 * Scanner calls are not checked in this implementation
 	 */
-	public static StudentList readFile(File f) throws FileNotFoundException {
-		StudentList sl = new StudentList();
+	public static HashSet<Student> readFile(File f) throws FileNotFoundException {
+		HashSet<Student> sl = new HashSet<>();
 		Scanner m = new Scanner(f);
 		String[] template = m.nextLine().split(","); //read template line (first line of document)
 		Map<String,Integer> ct = getTemplate(template); //turn template line into Map to use as template
@@ -160,6 +161,23 @@ public class FileIO {
 		}
 		m.close();
 		return sl;
+	}
+	
+	/**
+	 * Reads list and passes back a StudentList
+	 * @param f
+	 * File to be read
+	 * @return
+	 * Student list with a Set containing all students from list
+	 * @throws FileNotFoundException
+	 * Could not find file specified -- comes from File class
+	 */
+	public static StudentList readList(File f) throws FileNotFoundException {
+		
+		HashSet<Student> n = readFile(f);
+		return new StudentList(n);
+		
+		
 	}
 	
 	
