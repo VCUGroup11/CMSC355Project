@@ -1,14 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-<<<<<<< HEAD
-import java.io.InputStream;
-import java.util.HashMap;
-=======
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 import java.util.Scanner;
 
 
@@ -16,25 +11,6 @@ public class FileIO {
 	private Scanner s;
 	
 	private File currentFile;
-<<<<<<< HEAD
-
-	//TODO eventually utilize a Map to switch between formats
-	//public static final HashMap DEFAULT_FORMAT = new HashMap<String,Integer>();
-	
-	//Lists default format
-	
-	/*public static final String[] DEFAULT_FILE_FORMAT = 
-		{"lastname","firstname",
-			"idnum","grade",
-			"majorGPA","totalGPA",
-			"majorCrd","upperCrd","totalCrd"};
-			
-			*/
-
-	/**
-	 * Default Constructor, do not recommend using
-	 */
-=======
 	
 	/*
 	 * currentTemplate provides a way to go between a header string and an index corresponding to the right entry
@@ -50,7 +26,6 @@ public class FileIO {
 			"mGPA","tGPA",
 			"mCrd","uCrd","tCrd"};
 
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 	public FileIO() {
 		start();
 	}
@@ -75,15 +50,11 @@ public class FileIO {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
-	private void stop() {
-=======
 	/**
 	 * Call to prevent resource leaks. Will be automated in a future revision
 	 * TODO
 	 */
 	public void stop() {
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 		if(s!=null) {
 			s.close();
 		}
@@ -96,12 +67,6 @@ public class FileIO {
 		return currentFile;
 	}
 	
-<<<<<<< HEAD
-	//VERY basic readFile function
-	public StudentList readFile() {
-		StudentList sl = new StudentList();
-		s.nextLine(); //skip first template line
-=======
 	/**
 	 * Set template to one defined  by a csv header. DEFAULT_FILE_FORMAT provides the order and the check strings used
 	 * @param csvHeader
@@ -138,30 +103,10 @@ public class FileIO {
 		String[] template = s.nextLine().split(","); //read template line (first line of document)
 		setTemplate(template);
 		
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 		while(s.hasNextLine()) {
 			String[] data = s.nextLine().split(","); //raw data containing all comma seperated values of line
 			Student p = new Student();
 			
-<<<<<<< HEAD
-			p.setFirstName(data[0]);
-			p.setLastName(data[1]);
-			p.setIdNum(data[2]);
-			p.setGrade(data[3]);
-			
-			p.setMajorGPA(Float.parseFloat(data[4]));
-			p.setTotalGPA(Float.parseFloat(data[5]));
-			p.setMajorCrd(Integer.parseInt(data[6]));
-			p.setUpperCrd(Integer.parseInt(data[7]));
-			p.setTotalCrd(Integer.parseInt(data[8]));
-			
-			sl.add(p);
-		}
-		//TODO optimize and generalize
-		return sl;
-	}
-	
-=======
 			p.setFirstName(data[currentTemplate.get("fn")]);
 			p.setLastName(data[currentTemplate.get("ln")]);
 			p.setIdNum(data[currentTemplate.get("idNum")]);
@@ -236,7 +181,6 @@ public class FileIO {
 		
 		
 	}
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 	
 	
 	

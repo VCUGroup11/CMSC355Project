@@ -1,8 +1,4 @@
 import java.io.File;
-<<<<<<< HEAD
-import java.util.ArrayList;
-=======
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 import java.util.Collection;
 import static java.util.Collections.list;
 import java.util.HashSet;
@@ -25,34 +21,10 @@ public class StudentList implements Set<Student> {
         
         public StudentList(File file) {
                 HashSet<Student> list = new HashSet<Student>();
-<<<<<<< HEAD
-                
-                try{
-                    Scanner input = new Scanner(file);
-                    while(input.hasNextLine()) {
-                        Scanner line = new Scanner(input.nextLine());
-                        line.useDelimiter(",");
-                        list.add(new Student(
-                            line.next(),
-                            line.next(),
-                            line.next(),
-                            line.next(),
-                            Float.parseFloat(line.next()),
-                            Float.parseFloat(line.next()),
-                            Integer.parseInt(line.next()),
-                            Integer.parseInt(line.next()),
-                            Integer.parseInt(line.next()),
-                            line.next(),
-                            line.next()));
-                    }
-                }catch(Exception e) {
-                    //do nothing
-=======
                 try{
                 	list = FileIO.readFile(file);
                 }catch(Exception e) {
                		System.err.println("File could not be read! (FileIO static call)");
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
                 }
 		this.setStudentList(list);
 	}
@@ -149,20 +121,8 @@ public class StudentList implements Set<Student> {
 	}
 
 	@Override
-<<<<<<< HEAD
-	public Object[][] toArray() {
-		Object[][] output = new Object[studentList.size()][];
-                int i = 0;
-                for(Student aStudent : studentList) {
-                    output[i] = aStudent.toArray();
-                    i++;
-                }
-                
-                return output;
-=======
 	public Object[] toArray() {
 		return this.studentList.toArray();
->>>>>>> e4001b867d03b7a35b0a675b67d46df23647a52e
 	}
 
 	@Override
