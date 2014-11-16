@@ -21,31 +21,11 @@ public class StudentList implements Set<Student> {
         
         public StudentList(File file) {
                 HashSet<Student> list = new HashSet<Student>();
-                FileIO fIO = new FileIO(file);
-                list = fIO.readFile();
-                fIO.stop();
-                
-               /* try{
-                    Scanner input = new Scanner(file);
-                    while(input.hasNextLine()) {
-                        Scanner line = new Scanner(input.nextLine());
-                        line.useDelimiter(",");
-                        list.add(new Student(
-                            line.next(),
-                            line.next(),
-                            line.next(),
-                            line.next(),
-                            Float.parseFloat(line.next()),
-                            Float.parseFloat(line.next()),
-                            Integer.parseInt(line.next()),
-                            Integer.parseInt(line.next()),
-                            Integer.parseInt(line.next()),
-                            line.next(),
-                            line.next()));
-                    }
+                try{
+                	list = FileIO.readFile(file);
                 }catch(Exception e) {
-                    //do nothing
-                }*/
+               		System.err.println("File could not be read! (FileIO static call)");
+                }
 		this.setStudentList(list);
 	}
 
