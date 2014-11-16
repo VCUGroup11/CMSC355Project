@@ -117,7 +117,8 @@ public class FileIO {
 			p.setMajorCrd(Integer.parseInt(data[currentTemplate.get("mCrd")]));
 			p.setUpperCrd(Integer.parseInt(data[currentTemplate.get("uCrd")]));
 			p.setTotalCrd(Integer.parseInt(data[currentTemplate.get("tCrd")]));
-			
+			//TODO create a general method that assigns these values to a student obj
+			//lessens interclass coupling
 			sl.add(p);
 		}
 		
@@ -156,7 +157,8 @@ public class FileIO {
 			p.setMajorCrd(Integer.parseInt(data[ct.get("mCrd")]));
 			p.setUpperCrd(Integer.parseInt(data[ct.get("uCrd")]));
 			p.setTotalCrd(Integer.parseInt(data[ct.get("tCrd")]));
-			
+			//TODO create a general method that assigns these values to a student obj
+			//lessens interclass coupling
 			sl.add(p);
 		}
 		m.close();
