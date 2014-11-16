@@ -1,7 +1,7 @@
 
 public class Student implements Comparable<Student> {
 
-	private String firstName, lastName, idNum, grade;
+	private String firstName, lastName, idNum, grade, advDate, subDate;
 	private float majorGPA, totalGPA;
 	private int majorCrd, upperCrd, totalCrd;
 	private boolean gradQualified;
@@ -17,9 +17,11 @@ public class Student implements Comparable<Student> {
 		this.setUpperCrd(0);
 		this.setTotalCrd(0);
 		this.setGradQualified(false);
+                this.setAdvDate("");
+                this.setSubDate("");
 	}
 	
-	public Student(String fn, String ln, String id, String g, float mG, float tG, int mC, int uC, int tC) {
+	public Student(String fn, String ln, String id, String g, float mG, float tG, int mC, int uC, int tC, String aDate, String sDate) {
 		this.setFirstName(fn.trim());
 		this.setLastName(ln.trim());
 		this.setIdNum(id.trim());
@@ -30,6 +32,8 @@ public class Student implements Comparable<Student> {
 		this.setUpperCrd(uC);
 		this.setTotalCrd(tC);
 		this.setGradQualified(this.qualifyTest());
+                this.setAdvDate(aDate);
+                this.setSubDate(sDate);
 	}
 	
 	public String getFirstName() {
@@ -152,6 +156,14 @@ public class Student implements Comparable<Student> {
 	public String toString() {
 		return this.getLastName() + ", " + this.getFirstName() + ", " + this.getIdNum() + ", " + this.getGrade();
 	}
+
+    private void setAdvDate(String aDate) {
+        advDate = aDate;
+    }
+
+    private void setSubDate(String sDate) {
+        subDate = sDate;
+    }
 	
 	
 	

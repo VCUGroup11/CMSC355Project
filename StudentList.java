@@ -1,6 +1,9 @@
+import java.io.File;
 import java.util.Collection;
+import static java.util.Collections.list;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Scanner;
 import java.util.Set;
 
 
@@ -14,6 +17,33 @@ public class StudentList implements Set<Student> {
 	
 	public StudentList(Set<Student> list) {
 		this.setStudentList(new HashSet<Student>(list));
+	}
+        
+        public StudentList(File file) {
+                HashSet<Student> list = new HashSet<Student>();
+                
+                try{
+                    Scanner input = new Scanner(file);
+                    while(input.hasNextLine()) {
+                        Scanner line = new Scanner(input.nextLine());
+                        line.useDelimiter(",");
+                        list.add(new Student(
+                            line.next(),
+                            line.next(),
+                            line.next(),
+                            line.next(),
+                            Float.parseFloat(line.next()),
+                            Float.parseFloat(line.next()),
+                            Integer.parseInt(line.next()),
+                            Integer.parseInt(line.next()),
+                            Integer.parseInt(line.next()),
+                            line.next(),
+                            line.next()));
+                    }
+                }catch(Exception e) {
+                    //do nothing
+                }
+		this.setStudentList(list);
 	}
 
 	public Set<Student> getStudentList() {
