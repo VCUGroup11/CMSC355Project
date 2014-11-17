@@ -19,7 +19,7 @@ public class FileIO {
 	 * Used to classify elements of each template. Order doesn't particularly matter
 	 */
 	public static final String[] DEFAULT_FILE_FORMAT = 
-		{"fn","ln",
+		{"ln","fn",
 			"idnum","grade",
 			"mGPA","tGPA",
 			"mCrd","uCrd","tCrd",
@@ -60,35 +60,6 @@ public class FileIO {
 		currentTemplate = t;
 	}
 	
-	/**
-	 * Gets template from a file. Tries to handle any errors along the way
-	 * @param f
-	 * File to read, make sure it's csv formatted and not empty
-	 * @return
-	 * A Map (specifically a HashMap) containing template data from the csv header
-	 * parses line 0 of document.
-	 */
-	/*private static Map<String,Integer> getTemplate(File f){
-		Scanner j = null;
-		
-		try {
-			j = new Scanner(f);
-		} catch (FileNotFoundException e) {
-			System.err.println("Cannot find file! (Static access, FileIO getTemplate(f))");
-			e.printStackTrace();
-		}
-		
-		String[] templateData;
-		if(j.hasNextLine()) {
-			templateData = j.nextLine().split(",");
-		}else {
-			System.err.println("File is empty! (Static access, FileIO getTemplate(f))");
-			templateData = null;
-		}
-		
-		j.close();
-		return getTemplate(templateData);
-	}*/
 	/**
 	 * Gets all data from file besides template
 	 * @param f
@@ -165,7 +136,7 @@ public class FileIO {
 		//Map<String,Integer> template = getTemplate(f); //Gets template from file
 		Collection<String> data = getData(f); //Gets rest of file data
 		for(String l:data)
-			sl.add(makeStudent(l)); //parses each line of file data and adds resulting student object to hashset
+			sl.add(makeStudent(l.split(","))); //parses each line of file data and adds resulting student object to hashset
 		return sl;
 	}
 	
