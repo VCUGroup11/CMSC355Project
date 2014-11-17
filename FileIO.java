@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -18,14 +19,16 @@ public class FileIO {
 	private Map<String, Integer> currentTemplate = new HashMap<>();
 	
 	/**
-	 * Used to classify elements of each template
+	 * Used to classify elements of each template. Order doesn't particularly matter
 	 */
 	public static final String[] DEFAULT_FILE_FORMAT = 
 		{"ln","fn",
 			"idnum","grade",
 			"mGPA","tGPA",
 			"mCrd","uCrd","tCrd"};
-
+	/**
+	 * Default constructor, useful if file is not determined yet
+	 */
 	public FileIO() {
 		start();
 	}
@@ -52,7 +55,7 @@ public class FileIO {
 	}
 	/**
 	 * Call to prevent resource leaks. Will be automated in a future revision
-	 * TODO
+	 * For the most part, should not be necessary if using static calls.
 	 */
 	public void stop() {
 		if(s!=null) {
@@ -72,23 +75,95 @@ public class FileIO {
 	 * @param csvHeader
 	 * String array containing the comma separated values that need to be mapped 
 	 */
-	public void setTemplate(String... csvHeader) {
+	private void setTemplate(String... csvHeader) {
 		setTemplate(getTemplate(csvHeader));
 	}
-	public void setTemplate(Map<String,Integer> t) {
+	/**
+	 * Sets template to one defined by a Map. Helper method for the most part.
+	 * @param t
+	 * Map containing the elements which map to different indexes
+	 */
+	private void setTemplate(Map<String,Integer> t) {
 		currentTemplate = t;
 	}
 	public static Map<String,Integer> getTemplate(String... csvHeader) {
 		HashMap<String, Integer> t = new HashMap<>();
-		
 		for(String e:csvHeader) {
 			t.put(e, Arrays.binarySearch(DEFAULT_FILE_FORMAT, e));
 		}
-		
 		return t;
 	}
+	
+	/**
+	 * Gets template from a file. Tries to handle any errors along the way
+	 * @param f
+	 * File to read, make sure it's csv formatted and not empty
+	 * @return
+	 * A Map (specifically a HashMap) containing template data from the csv header
+	 * parses line 0 of document.
+	 */
+	private static Map<String,Integer> getTemplate(File f){
+		Scanner j = null;
+		String[] templateData = null;
+		
+		try {
+			j = new Scanner(f);
+			templateData = j.nextLine().split(",");
+		} catch (FileNotFoundException e) {
+			System.err.println("Cannot find file! (Static access, FileIO getTemplate(f)) || File is Empty!");
+			e.printStackTrace();
+		}
+		j.close();
+		return getTemplate(templateData);
+	}
+	/**
+	 * Gets all data from file besides template
+	 * @param f
+	 * File to read
+	 * @return
+	 * Collection<String> (specifically a HashSet to prevent duplicate Students) containing rest of file data,
+	 * lines 1 -> n
+	 */
+	private static Collection<String> getData(File f) {
+		Scanner j = null;
+		HashSet<String> lines = new HashSet<>();
+		try {
+			j = new Scanner(f); j.nextLine();
+			while(j.hasNextLine()) {
+				lines.add(j.nextLine());
+			}
+		} catch(Exception e) {
+			System.err.println("Could not read files! (Static access, FileIO getData(f) || File is Empty!");
+			e.printStackTrace();
+		}
+		j.close();
+		return lines;
+	}
+	
 	public Map<String, Integer> getTemplate() {
 		return currentTemplate;
+	}
+	/**
+	 * Makes student object from Map and String data
+	 * @param template
+	 * @param data
+	 * @return
+	 */
+	private static Student makeStudent(Map<String, Integer> template, String... data) {
+		Student p = new Student();
+		
+		p.setFirstName(data[template.get("fn")]);
+		p.setLastName(data[template.get("ln")]);
+		p.setIdNum(data[template.get("idNum")]);
+		p.setGrade(data[template.get("grade")]);
+		
+		p.setMajorGPA(Float.parseFloat(data[template.get("mGPA")]));
+		p.setTotalGPA(Float.parseFloat(data[template.get("tGPA")]));
+		p.setMajorCrd(Integer.parseInt(data[template.get("mCrd")]));
+		p.setUpperCrd(Integer.parseInt(data[template.get("uCrd")]));
+		p.setTotalCrd(Integer.parseInt(data[template.get("tCrd")]));
+		
+		return p;
 	}
 	
 	/**
@@ -99,69 +174,25 @@ public class FileIO {
 	 */
 	public HashSet<Student> readFile() {
 		HashSet<Student> sl = new HashSet<>();
-		
-		String[] template = s.nextLine().split(","); //read template line (first line of document)
-		setTemplate(template);
-		
-		while(s.hasNextLine()) {
-			String[] data = s.nextLine().split(","); //raw data containing all comma seperated values of line
-			Student p = new Student();
-			
-			p.setFirstName(data[currentTemplate.get("fn")]);
-			p.setLastName(data[currentTemplate.get("ln")]);
-			p.setIdNum(data[currentTemplate.get("idNum")]);
-			p.setGrade(data[currentTemplate.get("grade")]);
-			
-			p.setMajorGPA(Float.parseFloat(data[currentTemplate.get("mGPA")]));
-			p.setTotalGPA(Float.parseFloat(data[currentTemplate.get("tGPA")]));
-			p.setMajorCrd(Integer.parseInt(data[currentTemplate.get("mCrd")]));
-			p.setUpperCrd(Integer.parseInt(data[currentTemplate.get("uCrd")]));
-			p.setTotalCrd(Integer.parseInt(data[currentTemplate.get("tCrd")]));
-			//TODO create a general method that assigns these values to a student obj
-			//lessens interclass coupling
-			sl.add(p);
-		}
-		
+		setTemplate(getTemplate(currentFile));
+		Collection<String> data = getData(currentFile);
+		for(String l:data)
+			sl.add(makeStudent(currentTemplate,l));
 		return sl;
 	}
 	/**
-	 * Static implementation of FileIO's readFile command. Will be deprecated soon and merged with non-static implementation
+	 * Static implementation of FileIO's readFile command
 	 * @param f
-	 * File to be read. Template is extracted from this file.
+	 * File to be read. Template is extracted from this file, as well as file data.
 	 * @return
 	 * Student list containing all recognized information from file
-	 * @throws FileNotFoundException 
-	 * Scanner calls are not checked in this implementation
 	 */
-	public static HashSet<Student> readFile(File f) throws FileNotFoundException {
+	public static HashSet<Student> readFile(File f) {
 		HashSet<Student> sl = new HashSet<>();
-		Scanner m = new Scanner(f);
-		String[] template = m.nextLine().split(","); //read template line (first line of document)
-		Map<String,Integer> ct = getTemplate(template); //turn template line into Map to use as template
-		
-		while(m.hasNextLine()) {
-			String[] data = m.nextLine().split(","); //raw data containing all comma seperated values of line
-			Student p = new Student();
-			
-			/*
-			 * Sets each part of student equal to the correct element of the data string
-			 * Matches are determined by the map
-			 */
-			p.setFirstName(data[ct.get("fn")]);
-			p.setLastName(data[ct.get("ln")]);
-			p.setIdNum(data[ct.get("idNum")]);
-			p.setGrade(data[ct.get("grade")]);
-			
-			p.setMajorGPA(Float.parseFloat(data[ct.get("mGPA")]));
-			p.setTotalGPA(Float.parseFloat(data[ct.get("tGPA")]));
-			p.setMajorCrd(Integer.parseInt(data[ct.get("mCrd")]));
-			p.setUpperCrd(Integer.parseInt(data[ct.get("uCrd")]));
-			p.setTotalCrd(Integer.parseInt(data[ct.get("tCrd")]));
-			//TODO create a general method that assigns these values to a student obj
-			//lessens interclass coupling
-			sl.add(p);
-		}
-		m.close();
+		Map<String,Integer> template = getTemplate(f); //Gets template from file
+		Collection<String> data = getData(f); //Gets rest of file data
+		for(String l:data)
+			sl.add(makeStudent(template,l)); //parses each line of file data and adds resulting student object to hashset
 		return sl;
 	}
 	
@@ -175,11 +206,8 @@ public class FileIO {
 	 * Could not find file specified -- comes from File class
 	 */
 	public static StudentList readList(File f) throws FileNotFoundException {
-		
 		HashSet<Student> n = readFile(f);
-		return new StudentList(n);
-		
-		
+		return new StudentList(n);		
 	}
 	
 	
