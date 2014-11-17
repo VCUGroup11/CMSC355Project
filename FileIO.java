@@ -9,8 +9,6 @@ import java.util.Scanner;
 
 
 public class FileIO {
-	private Scanner s;
-	
 	private File currentFile;
 	
 	/*
@@ -30,7 +28,6 @@ public class FileIO {
 	 * Default constructor, useful if file is not determined yet
 	 */
 	public FileIO() {
-		start();
 	}
 	/**
 	 * Starts FileIO with a specific file to read
@@ -39,29 +36,12 @@ public class FileIO {
 	 */
 	public FileIO(File f) {
 		currentFile = f;
-		start();
 	}
 	
-	private void start() {
-		if(s!=null) {
-			stop();
-		}
-		try {
-			s = new Scanner(currentFile);
-		} catch (FileNotFoundException e) {
-			System.err.println("Could not read file (start method, FileIO)");
-			e.printStackTrace();
-		}
-	}
 	/**
 	 * Call to prevent resource leaks. Will be automated in a future revision
 	 * For the most part, should not be necessary if using static calls.
 	 */
-	public void stop() {
-		if(s!=null) {
-			s.close();
-		}
-	}
 	
 	public void setFile(File newFile) {
 		currentFile = newFile;
@@ -70,14 +50,6 @@ public class FileIO {
 		return currentFile;
 	}
 	
-	/**
-	 * Set template to one defined  by a csv header. DEFAULT_FILE_FORMAT provides the order and the check strings used
-	 * @param csvHeader
-	 * String array containing the comma separated values that need to be mapped 
-	 */
-	private void setTemplate(String... csvHeader) {
-		setTemplate(getTemplate(csvHeader));
-	}
 	/**
 	 * Sets template to one defined by a Map. Helper method for the most part.
 	 * @param t
@@ -202,10 +174,8 @@ public class FileIO {
 	 * File to be read
 	 * @return
 	 * Student list with a Set containing all students from list
-	 * @throws FileNotFoundException
-	 * Could not find file specified -- comes from File class
 	 */
-	public static StudentList readList(File f) throws FileNotFoundException {
+	public static StudentList readList(File f) {
 		HashSet<Student> n = readFile(f);
 		return new StudentList(n);		
 	}
