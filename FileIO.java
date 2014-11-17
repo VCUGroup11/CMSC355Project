@@ -7,7 +7,6 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
 
-
 public class FileIO {
 	private File currentFile;
 	
@@ -23,7 +22,9 @@ public class FileIO {
 		{"fn","ln",
 			"idnum","grade",
 			"mGPA","tGPA",
-			"mCrd","uCrd","tCrd"};
+			"mCrd","uCrd","tCrd",
+			"app","advisor","appDate"
+		};
 	/**
 	 * Default constructor, useful if file is not determined yet
 	 */
@@ -58,13 +59,6 @@ public class FileIO {
 	private void setTemplate(Map<String,Integer> t) {
 		currentTemplate = t;
 	}
-	public static Map<String,Integer> getTemplate(String... csvHeader) {
-		HashMap<String, Integer> t = new HashMap<>();
-		for(String e:csvHeader) {
-			t.put(e, Arrays.binarySearch(DEFAULT_FILE_FORMAT, e));
-		}
-		return t;
-	}
 	
 	/**
 	 * Gets template from a file. Tries to handle any errors along the way
@@ -74,7 +68,7 @@ public class FileIO {
 	 * A Map (specifically a HashMap) containing template data from the csv header
 	 * parses line 0 of document.
 	 */
-	private static Map<String,Integer> getTemplate(File f){
+	/*private static Map<String,Integer> getTemplate(File f){
 		Scanner j = null;
 		
 		try {
@@ -94,7 +88,7 @@ public class FileIO {
 		
 		j.close();
 		return getTemplate(templateData);
-	}
+	}*/
 	/**
 	 * Gets all data from file besides template
 	 * @param f
@@ -128,19 +122,19 @@ public class FileIO {
 	 * @param data
 	 * @return
 	 */
-	private static Student makeStudent(Map<String, Integer> template, String... data) {
+	private static Student makeStudent(String... data) {
 		Student p = new Student();
 		
-		p.setFirstName(data[template.get("fn")]);
-		p.setLastName(data[template.get("ln")]);
-		p.setIdNum(data[template.get("idNum")]);
-		p.setGrade(data[template.get("grade")]);
+		p.setFirstName(data[0]);
+		p.setLastName(data[1]);
+		p.setIdNum(data[2]);
+		p.setGrade(data[3]);
 		
-		p.setMajorGPA(Float.parseFloat(data[template.get("mGPA")]));
-		p.setTotalGPA(Float.parseFloat(data[template.get("tGPA")]));
-		p.setMajorCrd(Integer.parseInt(data[template.get("mCrd")]));
-		p.setUpperCrd(Integer.parseInt(data[template.get("uCrd")]));
-		p.setTotalCrd(Integer.parseInt(data[template.get("tCrd")]));
+		p.setMajorGPA(Float.parseFloat(data[4]));
+		p.setTotalGPA(Float.parseFloat(data[5]));
+		p.setMajorCrd(Integer.parseInt(data[6]));
+		p.setUpperCrd(Integer.parseInt(data[7]));
+		p.setTotalCrd(Integer.parseInt(data[8]));
 		
 		return p;
 	}
@@ -153,10 +147,10 @@ public class FileIO {
 	 */
 	public HashSet<Student> readFile() {
 		HashSet<Student> sl = new HashSet<>();
-		setTemplate(getTemplate(currentFile));
+		//setTemplate(getTemplate(currentFile));
 		Collection<String> data = getData(currentFile);
 		for(String l:data)
-			sl.add(makeStudent(currentTemplate,l));
+			sl.add(makeStudent(l));
 		return sl;
 	}
 	/**
@@ -168,10 +162,10 @@ public class FileIO {
 	 */
 	public static HashSet<Student> readFile(File f) {
 		HashSet<Student> sl = new HashSet<>();
-		Map<String,Integer> template = getTemplate(f); //Gets template from file
+		//Map<String,Integer> template = getTemplate(f); //Gets template from file
 		Collection<String> data = getData(f); //Gets rest of file data
 		for(String l:data)
-			sl.add(makeStudent(template,l)); //parses each line of file data and adds resulting student object to hashset
+			sl.add(makeStudent(l)); //parses each line of file data and adds resulting student object to hashset
 		return sl;
 	}
 	
