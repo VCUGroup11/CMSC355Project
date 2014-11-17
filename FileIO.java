@@ -76,15 +76,22 @@ public class FileIO {
 	 */
 	private static Map<String,Integer> getTemplate(File f){
 		Scanner j = null;
-		String[] templateData = null;
 		
 		try {
 			j = new Scanner(f);
-			templateData = j.nextLine().split(",");
 		} catch (FileNotFoundException e) {
-			System.err.println("Cannot find file! (Static access, FileIO getTemplate(f)) || File is Empty!");
+			System.err.println("Cannot find file! (Static access, FileIO getTemplate(f))");
 			e.printStackTrace();
 		}
+		
+		String[] templateData;
+		if(j.hasNextLine()) {
+			templateData = j.nextLine().split(",");
+		}else {
+			System.err.println("File is empty! (Static access, FileIO getTemplate(f))");
+			templateData = null;
+		}
+		
 		j.close();
 		return getTemplate(templateData);
 	}
