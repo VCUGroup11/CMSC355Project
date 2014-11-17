@@ -20,7 +20,7 @@ public class FileIO {
 	 * Used to classify elements of each template. Order doesn't particularly matter
 	 */
 	public static final String[] DEFAULT_FILE_FORMAT = 
-		{"ln","fn",
+		{"fn","ln",
 			"idnum","grade",
 			"mGPA","tGPA",
 			"mCrd","uCrd","tCrd"};
