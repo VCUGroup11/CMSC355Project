@@ -20,13 +20,7 @@ public class StudentList implements Set<Student> {
 	}
         
         public StudentList(File file) {
-                HashSet<Student> list = new HashSet<Student>();
-                try{
-                	list = FileIO.readFile(file);
-                }catch(Exception e) {
-               		System.err.println("File could not be read! (FileIO static call)");
-                }
-		this.setStudentList(list);
+                this.setStudentList(FileIO.readFile(file));
 	}
 
 	public Set<Student> getStudentList() {
