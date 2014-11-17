@@ -115,8 +115,14 @@ public class StudentList implements Set<Student> {
 	}
 
 	@Override
-	public Object[] toArray() {
-		return this.studentList.toArray();
+	public Object[][] toArray() {
+                Object[][] output = new Object[studentList.size()][];
+                int i = 0;
+                for(Student aStudent : studentList) {
+                    output[i] = aStudent.toArray();
+                    i++;
+                }
+		return output;
 	}
 
 	@Override
