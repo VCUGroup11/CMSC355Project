@@ -148,7 +148,15 @@ public class StudentList implements Set<Student> {
          * @return returns array of names formated as "Lastname, Firstname" 
          */
         public String[] getNames() {
-            return new String[] {"Hello", " World","!"};
+            Student[] n = new Student[this.getStudentList().size()];
+            n = this.getStudentList().toArray(n);
+            String[] names = new String[this.studentList.size()];
+            int i = 0;
+            for (Student s : n) {
+            names[i] = s.getLastName() + ", " + s.getFirstName();
+            i++;
+            }
+            return names;
         }
         
         /**
