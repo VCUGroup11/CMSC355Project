@@ -21,20 +21,6 @@ public class StudentInfo extends javax.swing.JPanel {
         students = new StudentList(new File("studentList.txt"));
         initComponents();
         
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            students.toArray(),
-            new String [] {
-                "Name", "VID", "Grade", "Academic Advising", "Date", "Graduation Submission", "Date", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
     }
 
     /**
@@ -53,18 +39,13 @@ public class StudentInfo extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"John Doe", "V40292", "Senior",  new Boolean(true), "10/05/14",  new Boolean(true), "10/52/14",  new Float(4.0),  new Float(2.5),  new Integer(20),  new Integer(1),  new Integer(100)},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
-            },
+            students.toArray(),
             new String [] {
-                "Name", "VID", "Grade", "Academic Advising", "Date", "Graduation Submission", "Date", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits"
+                "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -137,14 +118,15 @@ public class StudentInfo extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void loadList() {
+        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             students.toArray(),
             new String [] {
-                "Name", "VID", "Grade", "Academic Advising", "Date", "Graduation Submission", "Date", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits"
+                "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
