@@ -12,7 +12,7 @@ import java.io.File;
  * @author shadowx
  */
 public class StudentInfo extends javax.swing.JPanel {
-    public StudentList students;
+    public static StudentList students;
 
     /**
      * Creates new form StudentInfo

@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        studentInfo1 = new StudentInfo();
+        studentInfo2 = new StudentInfo();
         advingReport1 = new AdvingReport();
         gradReport1 = new GradReport();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -43,7 +43,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.addTab("Student Infomation", studentInfo1);
+        jTabbedPane1.addTab("Student Infomation", studentInfo2);
         jTabbedPane1.addTab("Advising Report", advingReport1);
         jTabbedPane1.addTab("Graduation Application Report", gradReport1);
 
@@ -158,6 +158,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private StudentInfo studentInfo1;
+    private StudentInfo studentInfo2;
     // End of variables declaration//GEN-END:variables
 }

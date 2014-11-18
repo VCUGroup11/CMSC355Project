@@ -76,11 +76,11 @@ public class FileIO {
 			while(j.hasNextLine()) {
 				lines.add(j.nextLine());
 			}
+                        j.close();
 		} catch(Exception e) {
 			System.err.println("Could not read files! (Static access, FileIO getData(f) || File is Empty!");
 			e.printStackTrace();
 		}
-		j.close();
 		return lines;
 	}
 	
