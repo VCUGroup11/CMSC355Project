@@ -1,4 +1,4 @@
-public class Student implements Comparable<Student> {
+public class Student {
 
     private String firstName, lastName, idNum, grade, advDate, subDate;
     private float majorGPA, totalGPA;
@@ -185,11 +185,11 @@ public class Student implements Comparable<Student> {
         return report;
     }
 
-    @Override
-    public int compareTo(Student s) {
-        return this.toString().compareTo(s.toString());
+    public boolean equals(Student other) {
+        return this.toString().equals(other.toString());
     }
 
+    @Override
     public String toString() {
         return this.getLastName() + ", " + this.getFirstName() + ", " + this.getIdNum() + ", " + this.getGrade();
     }
