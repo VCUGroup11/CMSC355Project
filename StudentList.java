@@ -129,5 +129,33 @@ public class StudentList implements Set<Student> {
 	public <T> T[] toArray(T[] s) {
 		return this.studentList.toArray(s);
 	}
-
+        
+        public String getAdvisingReport() {
+            return "Hello World!";
+        }
+        
+        /**
+         * 
+         * @param studentName "LastName, FirstName"
+         * @return 
+         */
+        public String getGradReport(String studentName) {
+            return "Hello World!";
+        }
+        
+        /**
+         * 
+         * @return returns array of names formated as "Lastname, Firstname" 
+         */
+        public String[] getNames() {
+            return new String[] {"Hello", " World","!"};
+        }
+        
+        /**
+         * Write the current data into outputFile in the same format it reads from the constructor
+         * @param outputFile 
+         */
+        public void saveInfo(File outputFile) {
+            
+        }
 }

@@ -12,13 +12,12 @@ import java.io.File;
  * @author shadowx
  */
 public class StudentInfo extends javax.swing.JPanel {
-    public static StudentList students;
+    
 
     /**
      * Creates new form StudentInfo
      */
     public StudentInfo() {
-        students = new StudentList(new File("studentList.txt"));
         initComponents();
         
     }
@@ -39,7 +38,7 @@ public class StudentInfo extends javax.swing.JPanel {
         jButton3 = new javax.swing.JButton();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            students.toArray(),
+            MainFrame.students.toArray(),
             new String [] {
                 "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
             }
@@ -80,47 +79,66 @@ public class StudentInfo extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton3)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(jButton3)
                     .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addGap(24, 24, 24))
+                    .addComponent(jButton1))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
+        MainFrame.students = new StudentList();
+        int rows = jTable1.getRowCount();
+        int col = jTable1.getColumnCount();
+        for(int i = 0; i < rows;i++) {
+            String first = (String)jTable1.getValueAt(i, 0);
+            String last = (String)jTable1.getValueAt(i, 1);
+            String id = (String)jTable1.getValueAt(i, 2);
+            String grade = (String)jTable1.getValueAt(i, 3);
+            float mGPA = (float)jTable1.getValueAt(i, 4);
+            float tGPA = (float)jTable1.getValueAt(i, 5);
+            int mCrd = (int)jTable1.getValueAt(i, 6);
+            int uCrd = (int)jTable1.getValueAt(i, 7);
+            int tCrd = (int)jTable1.getValueAt(i, 8);
+            String aDate = (String)jTable1.getValueAt(i, 10);
+            String sDate = (String)jTable1.getValueAt(i, 11);
+            MainFrame.students.add(new Student(first,last,id,grade,mGPA,tGPA,mCrd,uCrd,tCrd,aDate,sDate));
+        }
+        MainFrame.students.saveInfo(new File(""));
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        students = new StudentList(new File("studentList.txt"));
+        MainFrame.students = new StudentList(new File("studentList.txt"));
         loadList();
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        students.add(new Student());
+        MainFrame.students.add(new Student());
         loadList();
     }//GEN-LAST:event_jButton3ActionPerformed
     
     private void loadList() {
         //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            students.toArray(),
+            MainFrame.students.toArray(),
             new String [] {
                 "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
             }

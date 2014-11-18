@@ -7,9 +7,9 @@ public class Student implements Comparable<Student> {
 	private boolean gradQualified;
 	
 	public Student() {
-		this.setFirstName("");
-		this.setLastName("");
-		this.setIdNum("");
+		this.setFirstName("New");
+		this.setLastName("Student");
+		this.setIdNum("Vxxxxx");
 		this.setGrade("");
 		this.setMajorGPA(0);
 		this.setTotalGPA(0);
