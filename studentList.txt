@@ -1,2 +1,1 @@
-fn,ln,idnum,grade,mGPA,tGPA,mCrd,uCrd,tCrd,app,advisor,appDate
 John,Doe,V39105,Senior,3.1,2.3,14,15,50,True,10/05/14,10/35/14

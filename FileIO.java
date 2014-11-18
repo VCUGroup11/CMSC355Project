@@ -72,7 +72,7 @@ public class FileIO {
 		Scanner j = null;
 		HashSet<String> lines = new HashSet<>();
 		try {
-			j = new Scanner(f); j.nextLine();
+			j = new Scanner(f);
 			while(j.hasNextLine()) {
 				lines.add(j.nextLine());
 			}
@@ -107,6 +107,11 @@ public class FileIO {
 		p.setUpperCrd(Integer.parseInt(data[7]));
 		p.setTotalCrd(Integer.parseInt(data[8]));
 		
+		boolean tf = (data[9].toLowerCase().contains("t"))? true:false;
+		p.setGradQualified(tf);
+		p.setAdvDate(data[10]);
+		p.setSubDate(data[11]);
+		
 		return p;
 	}
 	
@@ -133,7 +138,6 @@ public class FileIO {
 	 */
 	public static HashSet<Student> readFile(File f) {
 		HashSet<Student> sl = new HashSet<>();
-		//Map<String,Integer> template = getTemplate(f); //Gets template from file
 		Collection<String> data = getData(f); //Gets rest of file data
 		for(String l:data)
 			sl.add(makeStudent(l.split(","))); //parses each line of file data and adds resulting student object to hashset
