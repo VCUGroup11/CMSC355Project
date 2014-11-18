@@ -166,8 +166,8 @@ public class Student {
     }//End unqualReason()
 
     public String getGradReport() {
-        String report = "***************  Student Graduation report ***************";
-        report = this.getLastName() + ", " + this.getLastName() + " : " + this.getIdNum() + "\n";
+        String report = "***************  Student Graduation report ***************\n";
+        report = report + this.getLastName() + ", " + this.getLastName() + " : " + this.getIdNum() + "\n";
         report = report + "Grade: " + this.getGrade() + "\n";
         report = report + "Graduation Application Submission Date: " + this.getSubDate() + "\n";
         report = report + "Major GPA: " + this.getMajorGPA() + "\n";
