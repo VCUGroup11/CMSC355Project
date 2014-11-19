@@ -140,7 +140,19 @@ public class StudentList implements Set<Student> {
          * @return 
          */
         public String getGradReport(String studentName) {
-            return "Hello World!";
+            return this.findStudent(studentName).getGradReport();
+        }
+        
+        public Student findStudent(String name) {
+        String last = name.substring(0, name.indexOf(',')).trim();
+        String first = name.substring(name.indexOf(',')+1).trim();
+        Student found = new Student();
+            for (Student s : this.getStudentList()) {
+                if (s.getLastName().equalsIgnoreCase(last) && s.getFirstName().equalsIgnoreCase(first)) {
+                    found = s;
+                }
+            }
+            return found;
         }
         
         /**
