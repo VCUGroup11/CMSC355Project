@@ -1,11 +1,16 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.OutputStreamWriter;
+import java.io.FileOutputStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Scanner;
+
 
 public class FileIO {
 	private File currentFile;
@@ -156,7 +161,21 @@ public class FileIO {
 		return new StudentList(n);		
 	}
 	
-	
-	
+	/*
+	** Creates file with specified name and fills with text content
+	** Warning: Overwrites file if it exists
+	*/
+	public static void writeFile(String fileName, String text) {
+		Writer writer = null;
+		try {
+			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
+			writer.write(text);
+		} catch(Exception e) {
+			System.out.println("Error writing to " + fileName);
+		} finally {
+			try { writer.close(); }
+			catch(Exception e) {}
+		}
+	}
 
 }
