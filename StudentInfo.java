@@ -40,7 +40,8 @@ public class StudentInfo extends javax.swing.JPanel {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             MainFrame.students.toArray(),
             new String [] {
-                "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                    "First Name", "Last Name", "VID", "Grade"
             }
         ) {
             Class[] types = new Class [] {
@@ -112,7 +113,7 @@ public class StudentInfo extends javax.swing.JPanel {
             String last = (String)jTable1.getValueAt(i, 1);
             String id = (String)jTable1.getValueAt(i, 2);
             String grade = (String)jTable1.getValueAt(i, 3);
-            float mGPA = (float)jTable1.getValueAt(i, 4);
+            /*float mGPA = (float)jTable1.getValueAt(i, 4);
             float tGPA = (float)jTable1.getValueAt(i, 5);
             int mCrd = (int)jTable1.getValueAt(i, 6);
             int uCrd = (int)jTable1.getValueAt(i, 7);
@@ -120,6 +121,9 @@ public class StudentInfo extends javax.swing.JPanel {
             String aDate = (String)jTable1.getValueAt(i, 10);
             String sDate = (String)jTable1.getValueAt(i, 11);
             MainFrame.students.add(new Student(first,last,id,grade,mGPA,tGPA,mCrd,uCrd,tCrd,aDate,sDate));
+            */
+            
+            MainFrame.students.add(new Student());
         }
         MainFrame.students.saveInfo(new File(""));
         
@@ -141,7 +145,8 @@ public class StudentInfo extends javax.swing.JPanel {
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             MainFrame.students.toArray(),
             new String [] {
-                "First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                    "First Name", "Last Name", "VID", "Grade"
             }
         ) {
             Class[] types = new Class [] {
