@@ -51,6 +51,7 @@ public class StudentInfo extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        jTable1.setFillsViewportHeight(true);
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Save Changes");
