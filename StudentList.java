@@ -1,11 +1,5 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import static java.util.Collections.list;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
+import java.util.*;
 
 
 public class StudentList implements Set<Student> {
@@ -19,9 +13,9 @@ public class StudentList implements Set<Student> {
 	public StudentList(Set<Student> list) {
 		this.setStudentList(new HashSet<Student>(list));
 	}
-        
-        public StudentList(File file) {
-                this.setStudentList(FileIO.readFile(file));
+
+	public StudentList(File file) {
+		this.setStudentList(FileIO.readFile(file));
 	}
 
 	public Set<Student> getStudentList() {
@@ -127,13 +121,14 @@ public class StudentList implements Set<Student> {
 	}
 
 	@Override
-	public <T> T[] toArray(T[] s) {
-		return this.studentList.toArray(s);
+	public <T> T[] toArray(T[] a) {
+		return this.studentList.toArray(a);
 	}
-        
-        public String getAdvisingReport() {
-            return "Hello World!";
-        }
+
+	public String getAdvisingReport() {
+		return "Hello World!";
+		//TODO Complete this method
+	}
         
         /**
          * 

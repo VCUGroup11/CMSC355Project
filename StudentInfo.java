@@ -84,7 +84,7 @@ public class StudentInfo extends javax.swing.JPanel {
 
         jButton2.setText("Reload");
         jButton2.addActionListener(evt -> {
-            MainFrame.students = new StudentList(new File("studentList.txt"));
+            MainFrame.students = new StudentList(new File("studentList.csv"));
             loadList();
         });
 
@@ -143,9 +143,7 @@ public class StudentInfo extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton1, jButton2, jButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

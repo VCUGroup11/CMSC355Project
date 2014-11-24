@@ -9,12 +9,12 @@
  *
  * @author shadowx
  */
-public class AdvingReport extends javax.swing.JPanel {
+public class AdvisingReport extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel
      */
-    public AdvingReport() {
+    public AdvisingReport() {
         initComponents();
     }
 
