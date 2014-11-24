@@ -72,8 +72,12 @@ public class FileIO {
 
 		for (Student s : sl.getStudentList()) {
 			String j = "";
-			for (String e : s.toArray())
+			for (String e : s.toArray()) {
+				if (e.isEmpty())
+					e = " ";
 				j += e + ",";
+			}
+
 			output.add(j.substring(0, j.length() - 1)); //substring needed to drop final comma as it is not part of csv
 		}
 
