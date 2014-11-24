@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import static java.util.Collections.list;
 import java.util.HashSet;
@@ -140,7 +141,19 @@ public class StudentList implements Set<Student> {
          * @return 
          */
         public String getGradReport(String studentName) {
+            if(studentName.equalsIgnoreCase("All Students")){
+                return this.getGradReport();
+            }
             return this.findStudent(studentName).getGradReport();
+        }
+        public String getGradReport() {
+            String result="";
+            for(Student aStudent : studentList) {
+                if(aStudent.isGradQualified()) {
+                    result += aStudent.getGradReport() + "\n";
+                }
+            }
+            return result;
         }
         
         public Student findStudent(String name) {
@@ -159,16 +172,19 @@ public class StudentList implements Set<Student> {
          * 
          * @return returns array of names formated as "Lastname, Firstname" 
          */
-        public String[] getNames() {
+        public String[] getGradNames() {
             Student[] n = new Student[this.getStudentList().size()];
             n = this.getStudentList().toArray(n);
-            String[] names = new String[this.studentList.size()];
-            int i = 0;
+            ArrayList<String> names = new ArrayList<String>();
+            names.add("All Students");
             for (Student s : n) {
-            names[i] = s.getLastName() + ", " + s.getFirstName();
-            i++;
+                if(s.isGradQualified()) {
+                  names.add(s.getLastName() + ", " + s.getFirstName());
+                }
             }
-            return names;
+            String[] temp = {};
+            temp = names.toArray(temp);
+            return temp;
         }
         
         /**

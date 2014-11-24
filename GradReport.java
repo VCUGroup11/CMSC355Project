@@ -33,12 +33,12 @@ public class GradReport extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getNames()));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getGradNames()));
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
-        jTextArea1.setText(MainFrame.students.getAdvisingReport());
+        jTextArea1.setText(MainFrame.students.getGradReport());
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Get Report");
@@ -92,7 +92,8 @@ public class GradReport extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getNames()));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getGradNames()));
+        jTextArea1.setText(MainFrame.students.getGradReport());
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
