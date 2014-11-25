@@ -1,102 +1,43 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.Writer;
-import java.io.BufferedWriter;
-import java.io.OutputStreamWriter;
-import java.io.FileOutputStream;
-import java.util.Arrays;
+import java.io.*;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 
 public class FileIO {
-	private File currentFile;
-	
-	/*
-	 * currentTemplate provides a way to go between a header string and an index corresponding to the right entry
-	 */
-	private Map<String, Integer> currentTemplate = new HashMap<>();
-	
-	/**
-	 * Used to classify elements of each template. Order doesn't particularly matter
-	 */
-	public static final String[] DEFAULT_FILE_FORMAT = 
-		{"ln","fn",
-			"idnum","grade",
-			"mGPA","tGPA",
-			"mCrd","uCrd","tCrd",
-			"app","advisor","appDate"
-		};
+
 	/**
 	 * Default constructor, useful if file is not determined yet
 	 */
 	public FileIO() {
 	}
-	/**
-	 * Starts FileIO with a specific file to read
-	 * @param f
-	 * CSV file containing values to read in as a StudentList
-	 */
-	public FileIO(File f) {
-		currentFile = f;
-	}
 	
 	/**
-	 * Call to prevent resource leaks. Will be automated in a future revision
-	 * For the most part, should not be necessary if using static calls.
-	 */
-	
-	public void setFile(File newFile) {
-		currentFile = newFile;
-	}
-	public File getFile() {
-		return currentFile;
-	}
-	
-	/**
-	 * Sets template to one defined by a Map. Helper method for the most part.
-	 * @param t
-	 * Map containing the elements which map to different indexes
-	 */
-	private void setTemplate(Map<String,Integer> t) {
-		currentTemplate = t;
-	}
-	
-	/**
-	 * Gets all data from file besides template
+	 * Gets all data from file
 	 * @param f
 	 * File to read
 	 * @return
 	 * Collection<String> (specifically a HashSet to prevent duplicate Students) containing rest of file data,
-	 * lines 1 -> n
 	 */
 	private static Collection<String> getData(File f) {
-		Scanner j = null;
 		HashSet<String> lines = new HashSet<>();
-		try {
-			j = new Scanner(f);
+		try (Scanner j = new Scanner(f)) {
 			while(j.hasNextLine()) {
 				lines.add(j.nextLine());
 			}
-                        j.close();
 		} catch(Exception e) {
-			System.err.println("Could not read files! (Static access, FileIO getData(f) || File is Empty!");
-			e.printStackTrace();
+			System.err.println("File is empty or could not be read!");
 		}
 		return lines;
 	}
-	
-	public Map<String, Integer> getTemplate() {
-		return currentTemplate;
-	}
+
 	/**
 	 * Makes student object from Map and String data
-	 * @param template
 	 * @param data
+	 * Strings containing data needed
 	 * @return
+	 * A student object
 	 */
 	private static Student makeStudent(String... data) {
 		Student p = new Student();
@@ -111,31 +52,40 @@ public class FileIO {
 		p.setMajorCrd(Integer.parseInt(data[6]));
 		p.setUpperCrd(Integer.parseInt(data[7]));
 		p.setTotalCrd(Integer.parseInt(data[8]));
-		
-		boolean tf = (data[9].toLowerCase().contains("t"))? true:false;
-		p.setGradQualified(tf);
+
+		p.setGradQualified(data[9].toLowerCase().contains("t"));
 		p.setAdvDate(data[10]);
 		p.setSubDate(data[11]);
 		
 		return p;
 	}
-	
+
 	/**
-	 * Reads files based on FileIO object. Use for reading multiple files with the same object,
-	 * or with different templates
+	 * Converts a StudentList back to a set of strings
+	 * @param sl
+	 * StudentList to be converted back to its string representations
 	 * @return
-	 * HashSet containing all the students in the file.
+	 * A set identical to the input that would form this list
 	 */
-	public HashSet<Student> readFile() {
-		HashSet<Student> sl = new HashSet<>();
-		//setTemplate(getTemplate(currentFile));
-		Collection<String> data = getData(currentFile);
-		for(String l:data)
-			sl.add(makeStudent(l));
-		return sl;
+	private static Set<String> readList(StudentList sl) {
+		Set<String> output = new HashSet<>();
+
+		for (Student s : sl.getStudentList()) {
+			String j = "";
+			for (String e : s.toArray()) {
+				if (e.isEmpty())
+					e = " ";
+				j += e + ",";
+			}
+
+			output.add(j.substring(0, j.length() - 1)); //substring needed to drop final comma as it is not part of csv
+		}
+
+		return output;
 	}
+
 	/**
-	 * Static implementation of FileIO's readFile command
+	 * Reads a file and parses information
 	 * @param f
 	 * File to be read. Template is extracted from this file, as well as file data.
 	 * @return
@@ -149,33 +99,27 @@ public class FileIO {
 		return sl;
 	}
 	
-	/**
-	 * Reads list and passes back a StudentList
-	 * @param f
-	 * File to be read
-	 * @return
-	 * Student list with a Set containing all students from list
-	 */
-	public static StudentList readList(File f) {
-		HashSet<Student> n = readFile(f);
-		return new StudentList(n);		
-	}
-	
 	/*
 	** Creates file with specified name and fills with text content
 	** Warning: Overwrites file if it exists
 	*/
-	public static void writeFile(String fileName, String text) {
-		Writer writer = null;
-		try {
-			writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)));
-			writer.write(text);
+	private static void writeFile(String fileName, Iterable<String> text) {
+		try (Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName)))) {
+			for (String line : text)
+				writer.write(line + "\n");
 		} catch(Exception e) {
-			System.out.println("Error writing to " + fileName);
-		} finally {
-			try { writer.close(); }
-			catch(Exception e) {}
+			System.err.println("Error writing to " + fileName);
 		}
+	}
+
+	/**
+	 * Write a student list to a file
+	 *
+	 * @param fileName File name of file
+	 * @param sl       Student list to write to the file
+	 */
+	public static void writeFile(String fileName, StudentList sl) {
+		writeFile(fileName, readList(sl));
 	}
 
 }

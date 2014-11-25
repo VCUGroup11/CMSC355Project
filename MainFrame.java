@@ -13,7 +13,7 @@ import java.io.File;
  * @author shadowx
  */
 public class MainFrame extends javax.swing.JFrame {
-    public static StudentList students = new StudentList(new File("studentList.txt"));
+    public static StudentList students = new StudentList(new File("studentList.csv"));
     /**
      * Creates new form MainFrame
      */
@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         studentInfo2 = new StudentInfo();
-        advingReport1 = new AdvingReport();
+        advingReport1 = new AdvisingReport();
         gradReport1 = new GradReport();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -41,20 +41,18 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTabbedPane1.addTab("Student Infomation", studentInfo2);
+        jTabbedPane1.addTab("Student Information", studentInfo2);
         jTabbedPane1.addTab("Advising Report", advingReport1);
         jTabbedPane1.addTab("Graduation Application Report", gradReport1);
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Import Student Infomation");
+        jMenuItem1.setText("Import Student Information");
         jMenu1.add(jMenuItem1);
 
-        jMenuItem3.setText("Export Student Infomation");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
-            }
+        jMenuItem3.setText("Export Student Information");
+        jMenuItem3.addActionListener(evt -> {
+            //TODO ADD COMPLETION CODE HERE
         });
         jMenu1.add(jMenuItem3);
 
@@ -75,11 +73,6 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -91,12 +84,11 @@ public class MainFrame extends javax.swing.JFrame {
          */
 
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels())
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
-            }
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -109,15 +101,13 @@ public class MainFrame extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new MainFrame().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private AdvingReport advingReport1;
+    private AdvisingReport advingReport1;
     private GradReport gradReport1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

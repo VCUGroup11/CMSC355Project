@@ -211,8 +211,8 @@ public class Student {
         return this.getLastName() + ", " + this.getFirstName() + ", " + this.getIdNum() + ", " + this.getGrade();
     }
 
-    public Object[] toArray() {
-        return new Object[]{firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd, gradQualified, advDate, subDate};
+    public String[] toArray() {
+        return new String[]{firstName, lastName, idNum, grade, "" + majorGPA, "" + totalGPA, "" + majorCrd, "" + upperCrd, "" + totalCrd, "" + gradQualified, advDate, subDate};
     }
 
 }

@@ -12,7 +12,32 @@ import java.io.File;
  * @author shadowx
  */
 public class StudentInfo extends javax.swing.JPanel {
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1, jButton2, jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    // End of variables declaration//GEN-END:variables
     
+    private void loadList() {
+        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            MainFrame.students.toArray(),
+            new String [] {
+                //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                    "First Name", "Last Name", "VID", "Grade"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+    }
 
     /**
      * Creates new form StudentInfo
@@ -55,36 +80,13 @@ public class StudentInfo extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Save Changes");
-        jButton1.addActionListener(evt -> {
-            //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
-            MainFrame.students = new StudentList();
-            int rows = jTable1.getRowCount();
-            //int col = jTable1.getColumnCount();
-            for(int i = 0; i < rows;i++) {
-                String first = (String)jTable1.getValueAt(i, 0);
-                String last = (String)jTable1.getValueAt(i, 1);
-                String id = (String)jTable1.getValueAt(i, 2);
-                String grade = (String)jTable1.getValueAt(i, 3);
-
-            /*float mGPA = (float)jTable1.getValueAt(i, 4);
-            float tGPA = (float)jTable1.getValueAt(i, 5);
-            int mCrd = (int)jTable1.getValueAt(i, 6);
-            int uCrd = (int)jTable1.getValueAt(i, 7);
-            int tCrd = (int)jTable1.getValueAt(i, 8);
-            String aDate = (String)jTable1.getValueAt(i, 10);
-            String sDate = (String)jTable1.getValueAt(i, 11);
-            MainFrame.students.add(new Student(first,last,id,grade,mGPA,tGPA,mCrd,uCrd,tCrd,aDate,sDate));
-            */
-
-                MainFrame.students.add(new Student(first,last,id,grade,0f,0f,0,0,0,"",""));
-            }
-            MainFrame.students.saveInfo(new File(""));
-
-        });
+        jButton1.addActionListener(evt ->
+                        FileIO.writeFile("studentList.csv", MainFrame.students)
+        );
 
         jButton2.setText("Reload");
         jButton2.addActionListener(evt -> {
-            MainFrame.students = new StudentList(new File("studentList.txt"));
+            MainFrame.students = new StudentList(new File("studentList.csv"));
             loadList();
         });
 
@@ -121,32 +123,4 @@ public class StudentInfo extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loadList() {
-        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            MainFrame.students.toArray(),
-            new String [] {
-                //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
-                    "First Name", "Last Name", "VID", "Grade"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-    }
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    // End of variables declaration//GEN-END:variables
 }
