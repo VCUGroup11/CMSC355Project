@@ -132,9 +132,15 @@ public class StudentInfo extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Save Changes");
-        jButton1.addActionListener(evt ->
-                        FileIO.writeFile("studentList.csv", MainFrame.students)
-        );
+        jButton1.addActionListener(evt -> {
+                        for(int i=0;i<jTable1.getRowCount();i++){
+			  Student stu = MainFrame.students.findStudent(((String)jTable1.getValueAt(i,1)) +","+ ((String)jTable1.getValueAt(i,0)));
+			  stu.setIdNum((String)jTable1.getValueAt(i,2));
+			  stu.setGrade((String)jTable1.getValueAt(i,3));
+                        }
+                        
+                        FileIO.writeFile("studentList.csv", MainFrame.students);
+        });
 
         jButton2.setText("Reload");
         jButton2.addActionListener(evt -> {
