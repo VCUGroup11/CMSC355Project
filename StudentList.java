@@ -141,15 +141,27 @@ public class StudentList implements Set<Student> {
          * @return 
          */
         public String getGradReport(String studentName) {
-            if(studentName.equalsIgnoreCase("All Students")){
+            if(studentName.contains("All") || studentName.contains("all")){
                 return this.getGradReport();
             }
             return this.findStudent(studentName).getGradReport();
         }
         public String getGradReport() {
+            return this.getGradQuReport()+this.getGradUnQuReport();
+        }
+        private String getGradQuReport() {
             String result="";
             for(Student aStudent : studentList) {
-                if(aStudent.isGradQualified()) {
+                if(!(aStudent.getSubDate().isEmpty()) && aStudent.isGradQualified()) {
+                    result += aStudent.getGradReport() + "\n";
+                }
+            }
+            return result;
+        }
+        private String getGradUnQuReport() {
+            String result="";
+            for(Student aStudent : studentList) {
+                if(!(aStudent.getSubDate().isEmpty()) && !(aStudent.isGradQualified())) {
                     result += aStudent.getGradReport() + "\n";
                 }
             }
@@ -178,9 +190,21 @@ public class StudentList implements Set<Student> {
             ArrayList<String> names = new ArrayList<String>();
             names.add("All Students");
             for (Student s : n) {
-                if(s.isGradQualified()) {
+                if(!(s.getSubDate().equalsIgnoreCase(""))) {
                   names.add(s.getLastName() + ", " + s.getFirstName());
                 }
+            }
+            String[] temp = {};
+            temp = names.toArray(temp);
+            return temp;
+        }
+        
+        public String[] getNames() {
+            Student[] n = new Student[this.getStudentList().size()];
+            n = this.getStudentList().toArray(n);
+            ArrayList<String> names = new ArrayList<String>();
+            for (Student s : n) {
+                  names.add(s.getLastName() + ", " + s.getFirstName());
             }
             String[] temp = {};
             temp = names.toArray(temp);
@@ -193,5 +217,9 @@ public class StudentList implements Set<Student> {
          */
         public void saveInfo(File outputFile) {
             
+        }
+        
+        public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {
+           this.findStudent(name).gradApp(mGPA, tGPA, mCrd, uCrd, tCrd);
         }
 }

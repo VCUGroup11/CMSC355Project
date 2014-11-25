@@ -1,3 +1,8 @@
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 public class Student {
 
     private String firstName, lastName, idNum, grade, advDate, subDate;
@@ -109,6 +114,18 @@ public class Student {
 
     public void setAdvDate(String aDate) {
         advDate = aDate;
+    }
+    
+    public void gradApp(float mG, float tG, int mC, int uC, int tC){
+        this.setMajorGPA(mG);
+        this.setTotalGPA(tG);
+        this.setMajorCrd(mC);
+        this.setUpperCrd(uC);
+        this.setTotalCrd(tC);
+        
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        Date date = cal.getTime();
+        this.setSubDate(date.getMonth() + "/" + date.getDate() + "/" + date.getYear());
     }
 
     public String getAdvDate() {
