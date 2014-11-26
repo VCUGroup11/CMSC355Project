@@ -1,3 +1,6 @@
+
+import java.awt.Font;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -37,6 +40,7 @@ public class AdvisingReport extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
+        jTextArea1.setFont(new Font("Monospaced", Font.PLAIN, 12));
         jTextArea1.setText(MainFrame.students.getAdvisingReport());
         jScrollPane2.setViewportView(jTextArea1);
 

@@ -8,7 +8,7 @@ public class Student {
     private String firstName, lastName, idNum, grade, advDate, subDate;
     private float majorGPA, totalGPA;
     private int majorCrd, upperCrd, totalCrd;
-    private boolean gradQualified;
+    private boolean gradQualified, acAdvising;
 
     public Student() {
         this.setFirstName("New");
@@ -23,6 +23,7 @@ public class Student {
         this.setGradQualified(false);
         this.setAdvDate("");
         this.setSubDate("");
+        this.setAcAdvising(false);
     }
 
     public Student(String fn, String ln, String id, String g, float mG, float tG, int mC, int uC, int tC, String aDate, String sDate) {
@@ -38,10 +39,17 @@ public class Student {
         this.setGradQualified(this.qualifyTest());
         this.setAdvDate(aDate);
         this.setSubDate(sDate);
+        this.setAcAdvising(false);
     }
 
     public String getFirstName() {
         return this.firstName;
+    }
+    public boolean getAcAdvising() {
+        return acAdvising;
+    }
+    public void setAcAdvising(boolean ac) {
+        acAdvising = ac;
     }
 
     public void setFirstName(String fn) {

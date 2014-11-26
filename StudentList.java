@@ -126,8 +126,17 @@ public class StudentList implements Set<Student> {
 	}
 
 	public String getAdvisingReport() {
-		return "Hello World!";
-		//TODO Complete this method
+            String result = String.format("%-18s %-18s %-18s %-18s %s", "Name", "VID" , "Grade","Academic Advising", "Date" +"\n");
+            for(Student stu : studentList) {
+                result +=  String.format("%-18s %-18s %-18s", stu.getLastName()+", "+stu.getFirstName(), stu.getIdNum(), stu.getGrade());
+                if(stu.getAcAdvising()) {
+                    result += String.format("%-18s", "Yes");
+                }else{
+                    result+= String.format("%-18s","No");
+                }
+                result += stu.getAdvDate() + "\n";
+            }
+            return result;
 	}
         
         /**
