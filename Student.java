@@ -131,9 +131,11 @@ public class Student {
         this.setUpperCrd(uC);
         this.setTotalCrd(tC);
         
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-        Date date = cal.getTime();
-        this.setSubDate(date.getMonth() + "/" + date.getDate() + "/" + date.getYear());
+        //Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+        //Date date = cal.getTime();
+       //this.setSubDate(date.getMonth() + "/" + date.getDate() + "/" + date.getYear());
+        Date date = new Date();
+        this.setSubDate(date.toString());
     }
 
     public String getAdvDate() {
@@ -141,15 +143,15 @@ public class Student {
     }
 
     public void setSubDate(String sDate) {
-        subDate = sDate;
+        this.subDate = sDate;
     }
 
     public String getSubDate() {
-        return subDate;
+        return this.subDate;
     }
 
     public boolean isGradQualified() {
-        return this.gradQualified;
+        return this.qualifyTest();
     }
 
     public void setGradQualified(boolean gradQualified) {
@@ -191,7 +193,7 @@ public class Student {
     }//End unqualReason()
 
     public String getGradReport() {
-        String report = "***************  Student Graduation report ***************\n";
+        String report = "----------------------  Student Graduation Report ----------------------\n";
         report = report + this.getLastName() + ", " + this.getFirstName() + " : " + this.getIdNum() + "\n";
         report = report + "Grade: " + this.getGrade() + "\n";
         report = report + "Graduation Application Submission Date: " + this.getSubDate() + "\n";
@@ -206,7 +208,7 @@ public class Student {
             report = report + "Graduation Status: Unqualified to Graduate\n";
         }
         report = report + this.unqualReason() + "\n";
-        report = report + "**********************************************************";
+        report = report + "----------------------------------------------------------------------------------------";
         return report;
     }
 

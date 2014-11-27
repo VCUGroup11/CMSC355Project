@@ -151,7 +151,15 @@ public class StudentList implements Set<Student> {
             return this.findStudent(studentName).getGradReport();
         }
         public String getGradReport() {
-            return this.getGradQuReport()+this.getGradUnQuReport();
+            String report = "              Qualified Student Graduation Reports\n";
+            report = report + "******************************************************************\n";
+            report = report + this.getGradQuReport();
+            report = report + "******************************************************************\n";
+            report = report + "            Unqualified Student Graduation Reports\n";
+            report = report + "******************************************************************\n";
+            report = report + this.getGradUnQuReport();
+            report = report + "******************************************************************\n";
+            return report;
         }
         private String getGradQuReport() {
             String result="";
@@ -165,7 +173,7 @@ public class StudentList implements Set<Student> {
         private String getGradUnQuReport() {
             String result="";
             for(Student aStudent : studentList) {
-                if(!(aStudent.getSubDate().isEmpty()) && !(aStudent.isGradQualified())) {
+                if(aStudent.getSubDate().isEmpty() || !(aStudent.isGradQualified())) {
                     result += aStudent.getGradReport() + "\n";
                 }
             }
