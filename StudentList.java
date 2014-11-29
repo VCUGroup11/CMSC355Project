@@ -236,6 +236,13 @@ public class StudentList implements Set<Student> {
             remove(student);
             FileIO.writeFile(fileName, this);
         }
+        /**
+         * 
+         * @param name formated "lastname,firstname" 
+         */
+        public void deleteStudent(String name) {
+            this.deleteStudent(this.findStudent(name), "studentList.csv");
+        }
         
         public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {
            this.findStudent(name).gradApp(mGPA, tGPA, mCrd, uCrd, tCrd);
