@@ -230,6 +230,12 @@ public class StudentList implements Set<Student> {
         public void saveInfo(File outputFile) {
             
         }
+
+        // Remove student from set and rewrite file without student
+        public void deleteStudent(Student student, String fileName) {
+            remove(student);
+            FileIO.writeFile(fileName, this);
+        }
         
         public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {
            this.findStudent(name).gradApp(mGPA, tGPA, mCrd, uCrd, tCrd);
