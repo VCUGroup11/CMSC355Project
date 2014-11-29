@@ -13,7 +13,7 @@ import java.io.File;
  * @author shadowx
  */
 public class MainFrame extends javax.swing.JFrame {
-    public static StudentList students = new StudentList(new File("studentList.csv"));
+    public static StudentList students = new StudentList(new File(StudentList.DEFAULT_FILENAME));
     /**
      * Creates new form MainFrame
      */
@@ -151,7 +151,6 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         students.deleteStudent((String)jComboBox1.getSelectedItem());
         jDialog1.setVisible(false);
-        students.saveInfo(new File("studentList.csv"));
         studentInfo2.loadList();
     }//GEN-LAST:event_jButton1ActionPerformed
     /**

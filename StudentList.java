@@ -5,6 +5,8 @@ import java.util.*;
 public class StudentList implements Set<Student> {
 	
 	private Set<Student> studentList;
+
+    public static final String DEFAULT_FILENAME = "studentList.csv";
 	
 	public StudentList() {
 		this.setStudentList(new HashSet<Student>());
@@ -231,17 +233,26 @@ public class StudentList implements Set<Student> {
             
         }
 
-        // Remove student from set and rewrite file without student
-        public void deleteStudent(Student student, String fileName) {
-            remove(student);
+        public void saveInfo(String fileName) {
             FileIO.writeFile(fileName, this);
         }
+
+        public void saveInfo() {
+            saveInfo(DEFAULT_FILENAME);
+        }
+
+        // Remove student from set and rewrite file without student
+        // (Deletes student from memory AND file)
+        public void deleteStudent(Student student, String fileName) {
+            remove(student); saveInfo(fileName);
+        }
+
         /**
          * 
          * @param name formated "lastname,firstname" 
          */
         public void deleteStudent(String name) {
-            this.deleteStudent(this.findStudent(name), "studentList.csv");
+            this.deleteStudent(this.findStudent(name), DEFAULT_FILENAME);
         }
         
         public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {

@@ -51,13 +51,14 @@ public class StudentInfo extends javax.swing.JPanel {
     public StudentInfo() {
         initComponents();
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
+        jTable1.getCellEditor().stopCellEditing();
         for(int i=0;i<jTable1.getRowCount();i++){
             Student stu = MainFrame.students.findStudent(((String)jTable1.getValueAt(i,1)) +","+ ((String)jTable1.getValueAt(i,0)));
             stu.setIdNum((String)jTable1.getValueAt(i,2));
             stu.setGrade((String)jTable1.getValueAt(i,3));
         }
-        FileIO.writeFile("studentList.csv", MainFrame.students);
+        MainFrame.students.saveInfo();
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         MainFrame.students = new StudentList(new File("studentList.csv"));
@@ -240,12 +241,13 @@ public class StudentInfo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        //jTable2.getCellEditor().stopCellEditing();
+        jTable2.getCellEditor().stopCellEditing();
         String fName = (String)jTable2.getValueAt(0,0);
         String lName = (String)jTable2.getValueAt(0,1);
         String VID = (String)jTable2.getValueAt(0,2);
         String Grade = (String)jTable2.getValueAt(0,3);
         MainFrame.students.add(new Student(fName, lName, VID, Grade, 0, 0, 0, 0, 0, "", ""));
+        MainFrame.students.saveInfo();
         jDialog1.setVisible(false);
         loadList();
     }//GEN-LAST:event_jButton4ActionPerformed
