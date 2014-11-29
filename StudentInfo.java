@@ -198,13 +198,14 @@ public class StudentInfo extends javax.swing.JPanel {
         
         jButton4.setText("Submit");
         jButton4.addActionListener(evt -> {
-	    String fName = (String)jTable2.getValueAt(0,0);
-	    String lName = (String)jTable2.getValueAt(0,1);
-	    String VID = (String)jTable2.getValueAt(0,2);
-	    String Grade = (String)jTable2.getValueAt(0,3);
-            MainFrame.students.add(new Student(fName, lName, VID, Grade, 0, 0, 0, 0, 0, "", ""));
-            jDialog1.setVisible(false);
-            loadList();
+            jTable2.getCellEditor().stopCellEditing();
+    	    String fName = (String)jTable2.getValueAt(0,0);
+    	    String lName = (String)jTable2.getValueAt(0,1);
+    	    String VID = (String)jTable2.getValueAt(0,2);
+    	    String Grade = (String)jTable2.getValueAt(0,3);
+                MainFrame.students.add(new Student(fName, lName, VID, Grade, 0, 0, 0, 0, 0, "", ""));
+                jDialog1.setVisible(false);
+                loadList();
         });
         
 
