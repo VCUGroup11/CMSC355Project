@@ -153,7 +153,7 @@ public class StudentInfo extends javax.swing.JPanel {
         jButton3.addActionListener(evt -> {
             jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {"", "", "", ""}
             },
             new String [] {
                 "First Name", "Last Name", "VID", "Grade"
