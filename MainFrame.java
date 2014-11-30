@@ -33,6 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        jFileChooser1 = new javax.swing.JFileChooser();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         studentInfo2 = new StudentInfo();
         advingReport1 = new AdvisingReport();
@@ -86,6 +87,11 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.setText("File");
 
         jMenuItem1.setText("Import Student Infomation");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuItem3.setText("Export Student Infomation");
@@ -137,7 +143,7 @@ public class MainFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        //export
+        //export student
     }   
     
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
@@ -153,6 +159,16 @@ public class MainFrame extends javax.swing.JFrame {
         jDialog1.setVisible(false);
         studentInfo2.loadList();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        //import
+        int returnValue = jFileChooser1.showOpenDialog(null);
+        if (returnValue == 0) {
+          File selectedFile = jFileChooser1.getSelectedFile();
+          students.addStudent(selectedFile);
+          students.saveInfo();
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -192,6 +208,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JDialog jDialog1;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

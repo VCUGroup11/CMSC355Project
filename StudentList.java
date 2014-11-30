@@ -39,6 +39,11 @@ public class StudentList implements Set<Student> {
 		}
 		System.out.println("Student: " + s.toString() + " \nhas been added to the list of students");
 	}//End addStudent()
+        
+        
+	public void addStudent(File importFile) {
+		this.addAll(FileIO.readFile(importFile));
+	}//End addStudent()
 	
 	public void removeStudent(Student s) {
 		System.out.println("Removing student: " + s.toString() + " \nfrom the list of students");
