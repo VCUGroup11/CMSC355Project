@@ -14,6 +14,7 @@ import java.io.File;
 public class StudentInfo extends javax.swing.JPanel {
 
 
+    public javax.swing.JTable jTable2;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -23,27 +24,7 @@ public class StudentInfo extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    public javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
-    
-    public void loadList() {
-        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            MainFrame.students.toArray(),
-            new String [] {
-                //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
-                    "First Name", "Last Name", "VID", "Grade"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-    }
 
     /**
      * Creates new form StudentInfo
@@ -51,19 +32,39 @@ public class StudentInfo extends javax.swing.JPanel {
     public StudentInfo() {
         initComponents();
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        jTable1.getCellEditor().stopCellEditing();
+
+    public void loadList() {
+        //firstName, lastName, idNum, grade, majorGPA, totalGPA, majorCrd, upperCrd, totalCrd,gradQualified,advDate,subDate
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+                MainFrame.students.toArray(),
+                new String[]{
+                        //"First Name", "Last name", "VID", "Grade", "Major GPA", "Total GPA", "Major Credits", "Upper Level Credits", "Total Credits", "Qualified to Graduate", "Last Advising","Graduation Application"
+                        "First Name", "Last Name", "VID", "Grade"
+                }
+        ) {
+            Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types[columnIndex];
+            }
+        });
+    }
+
+    public void saveChanges() {
+        //Grab edited info from table and save it
+        //To be removed and re-done
+
         for(int i=0;i<jTable1.getRowCount();i++){
-            Student stu = MainFrame.students.findStudent(((String)jTable1.getValueAt(i,1)) +","+ ((String)jTable1.getValueAt(i,0)));
+            Student stu = MainFrame.students.findStudent(jTable1.getValueAt(i, 1) + "," + jTable1.getValueAt(i, 0));
             stu.setIdNum((String)jTable1.getValueAt(i,2));
             stu.setGrade((String)jTable1.getValueAt(i,3));
         }
+
         MainFrame.students.saveInfo();
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        MainFrame.students = new StudentList(new File("studentList.csv"));
-        loadList();
-    }
+
     public void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
         javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -106,7 +107,7 @@ public class StudentInfo extends javax.swing.JPanel {
         jDialog1.setBounds(100, 100, 500, 300);
         jDialog1.setVisible(true);
         loadList();
-        
+
     }
 
     /**
@@ -123,31 +124,28 @@ public class StudentInfo extends javax.swing.JPanel {
         jTable2 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jTable1.setCellSelectionEnabled(false);
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
 
         jButton4.setText("Submit");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"", "", "", ""}
-            },
-            new String [] {
-                "First Name", "Last Name", "VID", "Grade"
-            }
+                new Object[][]{
+                        {"", "", "", ""}
+                },
+                new String[]{
+                        "First Name", "Last Name", "VID", "Grade"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            Class[] types = new Class[]{
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
         });
         jScrollPane2.setViewportView(jTable2);
@@ -193,25 +191,16 @@ public class StudentInfo extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Save Changes");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(evt -> saveChanges());
 
         jButton2.setText("Reload");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
+        jButton2.addActionListener(evt -> {
+            MainFrame.students = new StudentList(new File("studentList.csv"));
+            loadList();
         });
 
         jButton3.setText("Add Student");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
