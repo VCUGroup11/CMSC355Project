@@ -22,9 +22,9 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private AdvisingReport advingReport1;
     private GradReport gradReport1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton1, jButton2;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog1, jDialog2;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
@@ -32,7 +32,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem5, jMenuItem6;
     private javax.swing.JTabbedPane jTabbedPane1;
     private StudentInfo studentInfo2;
 
@@ -125,8 +125,10 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jDialog1 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
         jComboBox1 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         final FileFilter csv = new FileFilter() {
             @Override
@@ -155,6 +157,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(students.getNames()));
 
@@ -162,6 +165,23 @@ public class MainFrame extends javax.swing.JFrame {
         jButton1.addActionListener(evt -> {
             students.deleteStudent((String) jComboBox1.getSelectedItem());
             jDialog1.setVisible(false);
+            studentInfo2.loadList();
+        });
+
+        jButton2.setText("Export");
+        jButton2.addActionListener(evt -> {
+            StudentList ex = new StudentList();
+            Student s = students.findStudent((String) jComboBox1.getSelectedItem());
+            ex.add(s);
+            int returnVal = jFileChooser1.showSaveDialog(null);
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File f = jFileChooser1.getSelectedFile();
+                if (!f.getAbsolutePath().endsWith(".csv") && jFileChooser1.getFileFilter().equals(csv)) {
+                    f = new File(f.getAbsolutePath().concat(".csv"));
+                }
+                FileIO.writeFile(f.getPath(), ex);
+            }
+            jDialog2.setVisible(false);
             studentInfo2.loadList();
         });
 
@@ -189,6 +209,30 @@ public class MainFrame extends javax.swing.JFrame {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+                jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jDialog2Layout.createSequentialGroup()
+                                .addGroup(jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jDialog2Layout.createSequentialGroup()
+                                                .addGap(145, 145, 145)
+                                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jDialog2Layout.createSequentialGroup()
+                                                .addGap(145, 145, 145)
+                                                .addComponent(jButton2)))
+                                .addContainerGap(175, Short.MAX_VALUE))
+        );
+        jDialog2Layout.setVerticalGroup(
+                jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jDialog2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jTabbedPane1.addTab("Student Information", studentInfo2);
@@ -197,7 +241,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenu1.setText("File");
 
-        jMenuItem1.setText("Import Student Information");
+        jMenuItem1.setText("Import Students");
         jMenuItem1.addActionListener(evt -> {
             jFileChooser1.setApproveButtonText("Import");
             int returnVal = jFileChooser1.showOpenDialog(null);
@@ -210,11 +254,14 @@ public class MainFrame extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        jMenuItem3.setText("Export Student Information");
+        jMenuItem3.setText("Export Students");
         jMenuItem3.addActionListener(evt -> {
             int returnVal = jFileChooser1.showSaveDialog(null);
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File f = jFileChooser1.getSelectedFile();
+                if (!f.getAbsolutePath().endsWith(".csv") && jFileChooser1.getFileFilter().equals(csv)) {
+                    f = new File(f.getAbsolutePath().concat(".csv"));
+                }
                 FileIO.writeFile(f.getPath(), students);
             }
             studentInfo2.loadList();
@@ -241,6 +288,15 @@ public class MainFrame extends javax.swing.JFrame {
             studentInfo2.loadList();
         });
         jMenu1.add(jMenuItem5);
+
+        jMenuItem6.setText("Export Student");
+        jMenuItem6.addActionListener(evt -> {
+            jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(students.getNames()));
+            jDialog2.setBounds(100, 100, 400, 200);
+            jDialog2.setVisible(true);
+            students.saveInfo();
+        });
+        jMenu1.add(jMenuItem6);
 
         jMenuBar1.add(jMenu1);
 
