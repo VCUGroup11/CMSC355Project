@@ -52,7 +52,9 @@ public class StudentInfo extends javax.swing.JPanel {
         initComponents();
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
-        jTable1.getCellEditor().stopCellEditing();
+        if (jTable1.isEditing()) {
+           jTable1.getCellEditor().stopCellEditing();
+        }
         for(int i=0;i<jTable1.getRowCount();i++){
             Student stu = MainFrame.students.findStudent(((String)jTable1.getValueAt(i,1)) +","+ ((String)jTable1.getValueAt(i,0)));
             stu.setIdNum((String)jTable1.getValueAt(i,2));
@@ -241,7 +243,9 @@ public class StudentInfo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jTable2.getCellEditor().stopCellEditing();
+        if (jTable2.isEditing()) {
+           jTable2.getCellEditor().stopCellEditing();
+        }
         String fName = (String)jTable2.getValueAt(0,0);
         String lName = (String)jTable2.getValueAt(0,1);
         String VID = (String)jTable2.getValueAt(0,2);
