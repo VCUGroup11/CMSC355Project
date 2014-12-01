@@ -4,15 +4,15 @@ import java.util.*;
 
 public class StudentList implements Set<Student> {
 	
-	private Set<Student> studentList;
-
     public static final String DEFAULT_FILENAME = "studentList.csv";
-	
-	public StudentList() {
-		this.setStudentList(new HashSet<Student>());
-	}
-	
-	public StudentList(Set<Student> list) {
+    public static final String DEFAULT_TEMPNAME = "temp.csv";
+    private Set<Student> studentList;
+
+    public StudentList() {
+        this.setStudentList(new HashSet<>());
+    }
+
+    public StudentList(Set<Student> list) {
 		this.setStudentList(new HashSet<Student>(list));
 	}
 
@@ -50,7 +50,6 @@ public class StudentList implements Set<Student> {
 		if (this.contains(s)) {
 			this.remove(s);
 			System.out.println("Student: " + s.toString() + " \nwas removed from the list of students");
-			return;
 		}
 		else {
 			System.out.println("Student: " + s.toString() + " \nwas not found in the list of students");
@@ -229,22 +228,18 @@ public class StudentList implements Set<Student> {
             temp = names.toArray(temp);
             return temp;
         }
-        
-        /**
-         * Write the current data into outputFile in the same format it reads from the constructor
-         * @param outputFile 
-         */
-        public void saveInfo(File outputFile) {
-            
-        }
 
         public void saveInfo(String fileName) {
             FileIO.writeFile(fileName, this);
         }
 
         public void saveInfo() {
-            saveInfo(DEFAULT_FILENAME);
+            saveInfo(DEFAULT_TEMPNAME);
         }
+
+    public void saveInfoPermanently() {
+        saveInfo(DEFAULT_FILENAME);
+    }
 
         // Remove student from set and rewrite file without student
         // (Deletes student from memory AND file)

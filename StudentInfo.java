@@ -5,8 +5,6 @@
  */
 
 
-import java.io.File;
-
 /**
  *
  * @author shadowx
@@ -24,6 +22,7 @@ public class StudentInfo extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
+
     // End of variables declaration//GEN-END:variables
 
     /**
@@ -52,7 +51,7 @@ public class StudentInfo extends javax.swing.JPanel {
         });
     }
 
-    public void saveChanges() {
+    public void saveChanges(java.awt.event.ActionEvent evt) {
         //Grab edited info from table and save it
         //To be removed and re-done
         if (jTable1.isEditing()) {
@@ -65,7 +64,8 @@ public class StudentInfo extends javax.swing.JPanel {
             stu.setGrade((String)jTable1.getValueAt(i,3));
         }
 
-        MainFrame.students.saveInfo();
+        MainFrame.students.saveInfoPermanently();
+        loadList();
     }
 
     public void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,6 +109,8 @@ public class StudentInfo extends javax.swing.JPanel {
             );
         jDialog1.setBounds(100, 100, 500, 300);
         jDialog1.setVisible(true);
+
+        MainFrame.students.saveInfo();
         loadList();
 
     }
@@ -194,13 +196,10 @@ public class StudentInfo extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Save Changes");
-        jButton1.addActionListener(evt -> saveChanges());
+        jButton1.addActionListener(this::saveChanges);
 
         jButton2.setText("Reload");
-        jButton2.addActionListener(evt -> {
-            MainFrame.students = new StudentList(new File("studentList.csv"));
-            loadList();
-        });
+        jButton2.addActionListener(this::reload);
 
         jButton3.setText("Add Student");
         jButton3.addActionListener(this::jButton3ActionPerformed);
@@ -232,6 +231,7 @@ public class StudentInfo extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    //submit button
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         if (jTable2.isEditing()) {
             jTable2.getCellEditor().stopCellEditing();
@@ -245,4 +245,10 @@ public class StudentInfo extends javax.swing.JPanel {
         jDialog1.setVisible(false);
         loadList();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+
+    public void reload(java.awt.event.ActionEvent evt) {
+        MainFrame.students.saveInfo();
+        loadList();
+    }
 }

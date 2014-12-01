@@ -1,7 +1,10 @@
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
+import java.nio.file.Files;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,7 +18,7 @@ import java.io.File;
  * @author shadowx
  */
 public class MainFrame extends javax.swing.JFrame {
-    public static StudentList students = new StudentList(new File(StudentList.DEFAULT_FILENAME));
+    public static StudentList students = new StudentList();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private AdvisingReport advingReport1;
     private GradReport gradReport1;
@@ -37,7 +40,15 @@ public class MainFrame extends javax.swing.JFrame {
      * Creates new form MainFrame
      */
     public MainFrame() {
+        initializeList();
         initComponents();
+        super.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                closeList();
+                super.windowClosing(e);
+            }
+        });
     }
 
     /**
@@ -63,6 +74,45 @@ public class MainFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new MainFrame().setVisible(true));
+    }
+
+    private static void initializeList() {
+        File f = new File(StudentList.DEFAULT_TEMPNAME);
+        if (f.exists()) {
+            int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                    "Unsaved data was found. Would you like to try and recover the data?",
+                    "Restore unsaved data",
+                    JOptionPane.YES_NO_OPTION);
+            if (i == JOptionPane.YES_OPTION) {
+                students.addAll(new StudentList(new File(StudentList.DEFAULT_TEMPNAME)));
+            } else {
+                deleteTempFiles();
+            }
+        } else {
+            students.addAll(new StudentList(new File(StudentList.DEFAULT_FILENAME)));
+        }
+    }
+    // End of variables declaration//GEN-END:variables
+
+    private static void closeList() {
+        //Ask if user wants to commit
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to save all changes permanently to the database? This cannot be undone",
+                "Write Changes to Database",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION)
+            students.saveInfoPermanently();
+
+        //Clean up temp-files
+        deleteTempFiles();
+    }
+
+    private static void deleteTempFiles() {
+        try {
+            Files.delete(new File(StudentList.DEFAULT_TEMPNAME).toPath());
+        } catch (Exception e) {
+            //doNothing
+        }
     }
 
     /**
@@ -155,6 +205,7 @@ public class MainFrame extends javax.swing.JFrame {
                 File f = jFileChooser1.getSelectedFile();
                 students.addAll(FileIO.readFile(f));
             }
+            students.saveInfo();
             studentInfo2.loadList();
         });
         jMenu1.add(jMenuItem1);
@@ -171,7 +222,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jMenuItem3);
 
         jMenuItem2.setText("Add Student");
-        jMenuItem2.addActionListener(evt -> studentInfo2.jButton3ActionPerformed(new java.awt.event.ActionEvent(new Object(), 1, "")));
+        jMenuItem2.addActionListener(studentInfo2::jButton3ActionPerformed);
         jMenu1.add(jMenuItem2);
 
         jMenuItem4.setText("Remove Student");
@@ -179,13 +230,14 @@ public class MainFrame extends javax.swing.JFrame {
             jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(students.getNames()));
             jDialog1.setBounds(100, 100, 400, 200);
             jDialog1.setVisible(true);
+            students.saveInfo();
         });
         jMenu1.add(jMenuItem4);
 
         jMenuItem5.setText("Remove All Students");
         jMenuItem5.addActionListener(evt -> {
-            students.saveInfo();
             students.clear();
+            students.saveInfo();
             studentInfo2.loadList();
         });
         jMenu1.add(jMenuItem5);
@@ -207,5 +259,4 @@ public class MainFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    // End of variables declaration//GEN-END:variables
 }
