@@ -55,6 +55,9 @@ public class StudentInfo extends javax.swing.JPanel {
     public void saveChanges() {
         //Grab edited info from table and save it
         //To be removed and re-done
+        if (jTable1.isEditing()) {
+            jTable1.getCellEditor().stopCellEditing();
+        }
 
         for(int i=0;i<jTable1.getRowCount();i++){
             Student stu = MainFrame.students.findStudent(jTable1.getValueAt(i, 1) + "," + jTable1.getValueAt(i, 0));
@@ -230,7 +233,9 @@ public class StudentInfo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        jTable2.getCellEditor().stopCellEditing();
+        if (jTable2.isEditing()) {
+            jTable2.getCellEditor().stopCellEditing();
+        }
         String fName = (String)jTable2.getValueAt(0,0);
         String lName = (String)jTable2.getValueAt(0,1);
         String VID = (String)jTable2.getValueAt(0,2);
