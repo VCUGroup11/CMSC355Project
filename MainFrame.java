@@ -186,6 +186,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenuItem5.addActionListener(evt -> {
             students.saveInfo();
             students.clear();
+            studentInfo2.loadList();
         });
         jMenu1.add(jMenuItem5);
 
