@@ -39,7 +39,11 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean addAll(Collection<? extends Student> s) {
-        this.studentList.addAll(s);
+        for (Student s1 : s) {
+            if (!this.containsStudent(s1)) {            
+                this.studentList.add(s1);
+            }
+        }
         return this.studentList.containsAll(s);
     }
 
