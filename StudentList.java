@@ -1,6 +1,7 @@
+import javax.swing.*;
 import java.io.File;
 import java.util.*;
-import javax.swing.JOptionPane;
+import java.util.stream.Collectors;
 
 public class StudentList implements Set<Student> {
 
@@ -12,10 +13,6 @@ public class StudentList implements Set<Student> {
         this.setStudentList(new HashSet<>());
     }
 
-    public StudentList(Set<Student> list) {
-        this.setStudentList(new HashSet<Student>(list));
-    }
-
     public StudentList(File file) {
         this.setStudentList(FileIO.readFile(file));
     }
@@ -24,34 +21,9 @@ public class StudentList implements Set<Student> {
         return studentList;
     }
 
-    public void setStudentList(Set<Student> studentList) {
+    void setStudentList(Set<Student> studentList) {
         this.studentList = studentList;
     }
-
-    public void addStudent(Student s) {
-        System.out.println("Adding student: " + s.toString() + " \nto the list of students");
-        if (this.containsStudent(s)) {
-            System.out.println("Student: " + s.toString() + " \nIs already in the list of students");
-            return;
-        } else {
-            this.add(s);
-        }
-        System.out.println("Student: " + s.toString() + " \nhas been added to the list of students");
-    }//End addStudent()
-
-    public void addStudent(File importFile) {
-        this.addAll(FileIO.readFile(importFile));
-    }//End addStudent()
-
-    public void removeStudent(Student s) {
-        System.out.println("Removing student: " + s.toString() + " \nfrom the list of students");
-        if (this.contains(s)) {
-            this.remove(s);
-            System.out.println("Student: " + s.toString() + " \nwas removed from the list of students");
-        } else {
-            System.out.println("Student: " + s.toString() + " \nwas not found in the list of students");
-        }
-    }//End removeStudent()
 
     @Override
     public boolean add(Student s) {
@@ -65,11 +37,7 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean addAll(Collection<? extends Student> s) {
-        for (Student s1 : s) {
-            if (!this.containsStudent(s1)) {
-                this.studentList.add(s1);
-            }
-        }
+        this.studentList.addAll(s.stream().filter(s1 -> !this.containsStudent(s1)).collect(Collectors.toList()));
         return this.studentList.containsAll(s);
     }
 
@@ -89,7 +57,7 @@ public class StudentList implements Set<Student> {
         return this.studentList.contains(s);
     }
 
-    public boolean containsStudent(Student s) {
+    boolean containsStudent(Student s) {
         for (Student s1 : this) {
             if ((s.getFirstName().equalsIgnoreCase(s1.getFirstName())) && (s.getLastName().equalsIgnoreCase(s1.getLastName())) && (s.getIdNum().equalsIgnoreCase(s1.getIdNum()))) {
                 return true;
@@ -242,7 +210,7 @@ public class StudentList implements Set<Student> {
     public String[] getGradNames() {
         Student[] n = new Student[this.getStudentList().size()];
         n = this.getStudentList().toArray(n);
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         names.add("All Students");
         for (Student s : n) {
             if (!(s.getSubDate().equalsIgnoreCase(""))) {
@@ -257,7 +225,7 @@ public class StudentList implements Set<Student> {
     public String[] getNames() {
         Student[] n = new Student[this.getStudentList().size()];
         n = this.getStudentList().toArray(n);
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         for (Student s : n) {
             names.add(s.getLastName() + ", " + s.getFirstName());
         }
@@ -266,7 +234,7 @@ public class StudentList implements Set<Student> {
         return temp;
     }
 
-    public void saveInfo(String fileName) {
+    void saveInfo(String fileName) {
         FileIO.writeFile(fileName, this);
     }
 
@@ -280,7 +248,7 @@ public class StudentList implements Set<Student> {
 
     // Remove student from set and rewrite file without student
     // (Deletes student from memory AND file)
-    public void deleteStudent(Student student, String fileName) {
+    void deleteStudent(Student student, String fileName) {
         remove(student);
         saveInfo(fileName);
     }
@@ -293,7 +261,4 @@ public class StudentList implements Set<Student> {
         this.deleteStudent(this.findStudent(name), DEFAULT_FILENAME);
     }
 
-    public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {
-        this.findStudent(name).gradApp(mGPA, tGPA, mCrd, uCrd, tCrd);
-    }
 }
