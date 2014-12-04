@@ -1,7 +1,4 @@
-
-import java.util.Calendar;
 import java.util.Date;
-import java.util.TimeZone;
 
 public class Student {
 
@@ -13,7 +10,7 @@ public class Student {
     public Student() {
         this.setFirstName("New");
         this.setLastName("Student");
-        this.setIdNum("Vxxxxx");
+        this.setIdNum("Vxxxxxxxx");
         this.setGrade("");
         this.setMajorGPA(0);
         this.setTotalGPA(0);
@@ -45,15 +42,17 @@ public class Student {
     public String getFirstName() {
         return this.firstName;
     }
-    public boolean getAcAdvising() {
-        return acAdvising;
-    }
-    public void setAcAdvising(boolean ac) {
-        acAdvising = ac;
-    }
 
     public void setFirstName(String fn) {
         this.firstName = fn;
+    }
+
+    public boolean getAcAdvising() {
+        return acAdvising;
+    }
+
+    public void setAcAdvising(boolean ac) {
+        acAdvising = ac;
     }
 
     public String getLastName() {
@@ -80,7 +79,7 @@ public class Student {
         this.grade = g;
     }
 
-    public float getMajorGPA() {
+    float getMajorGPA() {
         return this.majorGPA;
     }
 
@@ -88,7 +87,7 @@ public class Student {
         this.majorGPA = majorGPA;
     }
 
-    public float getTotalGPA() {
+    float getTotalGPA() {
         return this.totalGPA;
     }
 
@@ -96,7 +95,7 @@ public class Student {
         this.totalGPA = totalGPA;
     }
 
-    public int getMajorCrd() {
+    int getMajorCrd() {
         return this.majorCrd;
     }
 
@@ -104,7 +103,7 @@ public class Student {
         this.majorCrd = majorCrd;
     }
 
-    public int getUpperCrd() {
+    int getUpperCrd() {
         return this.upperCrd;
     }
 
@@ -112,7 +111,7 @@ public class Student {
         this.upperCrd = upperCrd;
     }
 
-    public int getTotalCrd() {
+    int getTotalCrd() {
         return this.totalCrd;
     }
 
@@ -120,20 +119,16 @@ public class Student {
         this.totalCrd = totalCrd;
     }
 
-    public void setAdvDate(String aDate) {
-        advDate = aDate;
-    }
-    
-    public void gradApp(float mG, float tG, int mC, int uC, int tC){
+    public void gradApp(float mG, float tG, int mC, int uC, int tC) {
         this.setMajorGPA(mG);
         this.setTotalGPA(tG);
         this.setMajorCrd(mC);
         this.setUpperCrd(uC);
         this.setTotalCrd(tC);
-        
+
         //Calendar cal = Calendar.getInstance(TimeZone.getDefault());
         //Date date = cal.getTime();
-       //this.setSubDate(date.getMonth() + "/" + date.getDate() + "/" + date.getYear());
+        //this.setSubDate(date.getMonth() + "/" + date.getDate() + "/" + date.getYear());
         Date date = new Date();
         this.setSubDate(date.toString());
     }
@@ -142,12 +137,16 @@ public class Student {
         return advDate;
     }
 
-    public void setSubDate(String sDate) {
-        this.subDate = sDate;
+    public void setAdvDate(String aDate) {
+        advDate = aDate;
     }
 
     public String getSubDate() {
         return this.subDate;
+    }
+
+    public void setSubDate(String sDate) {
+        this.subDate = sDate;
     }
 
     public boolean isGradQualified() {
@@ -159,17 +158,11 @@ public class Student {
     }
 
     //Checks if student is qualified to graduate
-    public boolean qualifyTest() {
-        boolean q = false;
-        if ((this.getMajorGPA() >= 2.0) && (this.getTotalGPA() >= 2.0) && (this.getMajorCrd() >= 45) && (this.getUpperCrd() >= 45) && (this.getTotalCrd() >= 120)) {
-            q = true;
-        } else {
-            q = false;
-        }
-        return q;
+    boolean qualifyTest() {
+        return (this.getMajorGPA() >= 2.0) && (this.getTotalGPA() >= 2.0) && (this.getMajorCrd() >= 45) && (this.getUpperCrd() >= 45) && (this.getTotalCrd() >= 120);
     }
 
-    public String unqualReason() {
+    String unqualReason() {
         String reason = "";
         if (!this.qualifyTest()) {
            reason = "Unqualified Reasons:\n";
@@ -203,17 +196,13 @@ public class Student {
         report = report + "Upper Level Credits: " + this.getUpperCrd() + "\n";
         report = report + "Total Credits: " + this.getTotalCrd() + "\n";
         if (this.qualifyTest()) {
-            report = report + "Graduation Status: Qualified to Gradute\n";
+            report = report + "Graduation Status: Qualified to Graduate\n";
         } else {
             report = report + "Graduation Status: Unqualified to Graduate\n";
         }
         report = report + this.unqualReason() + "\n";
         report = report + "----------------------------------------------------------------------------------------";
         return report;
-    }
-
-    public boolean equals(Student other) {
-        return this.toString().equals(other.toString());
     }
 
     @Override

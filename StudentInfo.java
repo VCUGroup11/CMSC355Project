@@ -9,17 +9,12 @@
  *
  * @author shadowx
  */
-public class StudentInfo extends javax.swing.JPanel {
+class StudentInfo extends javax.swing.JPanel {
 
 
-    public javax.swing.JTable jTable2;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JTable jTable2;
     private javax.swing.JButton jButton4;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
 
@@ -41,7 +36,7 @@ public class StudentInfo extends javax.swing.JPanel {
                         "First Name", "Last Name", "VID", "Grade"
                 }
         ) {
-            Class[] types = new Class[]{
+            final Class[] types = new Class[]{
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
@@ -51,7 +46,7 @@ public class StudentInfo extends javax.swing.JPanel {
         });
     }
 
-    public void saveChanges(java.awt.event.ActionEvent evt) {
+    void saveChanges(java.awt.event.ActionEvent evt) {
         //Grab edited info from table and save it
         //To be removed and re-done
         if (jTable1.isEditing()) {
@@ -78,7 +73,7 @@ public class StudentInfo extends javax.swing.JPanel {
             "First Name", "Last Name", "VID", "Grade"
             }
             ) {
-                Class[] types = new Class [] {
+            final Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
                 };
                 public Class getColumnClass(int columnIndex) {
@@ -127,12 +122,12 @@ public class StudentInfo extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jTable1.setCellSelectionEnabled(false);
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        javax.swing.JButton jButton1 = new javax.swing.JButton();
+        javax.swing.JButton jButton2 = new javax.swing.JButton();
+        javax.swing.JButton jButton3 = new javax.swing.JButton();
 
         jButton4.setText("Submit");
         jButton4.addActionListener(this::jButton4ActionPerformed);
@@ -145,7 +140,7 @@ public class StudentInfo extends javax.swing.JPanel {
                         "First Name", "Last Name", "VID", "Grade"
                 }
         ) {
-            Class[] types = new Class[]{
+            final Class[] types = new Class[]{
                     java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
@@ -184,7 +179,7 @@ public class StudentInfo extends javax.swing.JPanel {
                 "First Name", "Last name", "VID", "Grade"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class[]{
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class,java.lang.Integer.class,java.lang.Integer.class,java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
             };
 
@@ -247,7 +242,7 @@ public class StudentInfo extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
 
-    public void reload(java.awt.event.ActionEvent evt) {
+    void reload(java.awt.event.ActionEvent evt) {
         MainFrame.students.saveInfo();
         loadList();
     }

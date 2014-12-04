@@ -3,16 +3,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
-public class FileIO {
+class FileIO {
 
-	/**
-	 * Default constructor, useful if file is not determined yet
-	 */
-	public FileIO() {
-	}
-	
 	/**
 	 * Gets all data from file
 	 * @param f
@@ -94,8 +89,8 @@ public class FileIO {
 	public static HashSet<Student> readFile(File f) {
 		HashSet<Student> sl = new HashSet<>();
 		Collection<String> data = getData(f); //Gets rest of file data
-		for(String l:data)
-			sl.add(makeStudent(l.split(","))); //parses each line of file data and adds resulting student object to hashset
+		//parses each line of file data and adds resulting student object to hashset
+		sl.addAll(data.stream().map(l -> makeStudent(l.split(","))).collect(Collectors.toList()));
 		return sl;
 	}
 	

@@ -9,17 +9,12 @@
  *
  * @author shadowx
  */
-public class GradReport extends javax.swing.JPanel {
+class GradReport extends javax.swing.JPanel {
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JDialog jDialog1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea1;
@@ -46,18 +41,14 @@ public class GradReport extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        javax.swing.JButton jButton1 = new javax.swing.JButton();
+        javax.swing.JButton jButton2 = new javax.swing.JButton();
+        javax.swing.JButton jButton3 = new javax.swing.JButton();
 
         jButton4.setText("Submit");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getNames()));
 
@@ -69,7 +60,7 @@ public class GradReport extends javax.swing.JPanel {
                         "Major GPA", "Total GPA", "Major Crd", "Upper Crd", "Total Crd"
                 }
         ) {
-            Class[] types = new Class[]{
+            final Class[] types = new Class[]{
                     java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 
@@ -119,25 +110,13 @@ public class GradReport extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTextArea1);
 
         jButton1.setText("Get Report");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Refresh");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         jButton3.setText("Apply For Graduation");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -193,7 +172,7 @@ public class GradReport extends javax.swing.JPanel {
                         "Major GPA", "Total GPA", "Major Crd", "Upper Crd", "Total Crd"
                 }
         ) {
-            Class[] types = new Class[]{
+            final Class[] types = new Class[]{
                     java.lang.Float.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
 

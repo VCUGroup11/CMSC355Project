@@ -17,29 +17,17 @@ import java.nio.file.Files;
  *
  * @author shadowx
  */
-public class MainFrame extends javax.swing.JFrame {
-    public static StudentList students = new StudentList();
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private AdvisingReport advingReport1;
-    private GradReport gradReport1;
-    private javax.swing.JButton jButton1, jButton2;
+class MainFrame extends javax.swing.JFrame {
+    public static final StudentList students = new StudentList();
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JDialog jDialog1, jDialog2;
     private javax.swing.JFileChooser jFileChooser1;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5, jMenuItem6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private StudentInfo studentInfo2;
 
     /**
      * Creates new form MainFrame
      */
-    public MainFrame() {
+    private MainFrame() {
         initializeList();
         initComponents();
         super.addWindowListener(new WindowAdapter() {
@@ -127,8 +115,8 @@ public class MainFrame extends javax.swing.JFrame {
         jDialog1 = new javax.swing.JDialog();
         jDialog2 = new javax.swing.JDialog();
         jComboBox1 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        JButton jButton1 = new JButton();
+        JButton jButton2 = new JButton();
 
         final FileFilter csv = new FileFilter() {
             @Override
@@ -146,18 +134,18 @@ public class MainFrame extends javax.swing.JFrame {
         jFileChooser1.setFileSelectionMode(JFileChooser.FILES_ONLY);
         jFileChooser1.setFileFilter(csv);
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        JTabbedPane jTabbedPane1 = new JTabbedPane();
         studentInfo2 = new StudentInfo();
-        advingReport1 = new AdvisingReport();
-        gradReport1 = new GradReport();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        AdvisingReport advingReport1 = new AdvisingReport();
+        GradReport gradReport1 = new GradReport();
+        JMenuBar jMenuBar1 = new JMenuBar();
+        JMenu jMenu1 = new JMenu();
+        JMenuItem jMenuItem1 = new JMenuItem();
+        JMenuItem jMenuItem3 = new JMenuItem();
+        JMenuItem jMenuItem2 = new JMenuItem();
+        JMenuItem jMenuItem4 = new JMenuItem();
+        JMenuItem jMenuItem5 = new JMenuItem();
+        JMenuItem jMenuItem6 = new JMenuItem();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(students.getNames()));
 

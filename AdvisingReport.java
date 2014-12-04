@@ -1,5 +1,4 @@
-
-import java.awt.Font;
+import java.awt.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,7 +11,12 @@ import java.awt.Font;
  *
  * @author shadowx
  */
-public class AdvisingReport extends javax.swing.JPanel {
+class AdvisingReport extends javax.swing.JPanel {
+
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextArea jTextArea1;
 
     /**
      * Creates new form NewJPanel
@@ -32,23 +36,19 @@ public class AdvisingReport extends javax.swing.JPanel {
 
         jDialog1 = new javax.swing.JDialog();
         jComboBox1 = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        javax.swing.JButton jButton3 = new javax.swing.JButton();
+        javax.swing.JScrollPane jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        javax.swing.JLabel jLabel1 = new javax.swing.JLabel();
+        javax.swing.JScrollPane jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        javax.swing.JButton jButton1 = new javax.swing.JButton();
+        javax.swing.JButton jButton2 = new javax.swing.JButton();
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getNames()));
 
         jButton3.setText("Submit");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,7 +58,7 @@ public class AdvisingReport extends javax.swing.JPanel {
                 "Academic Advising", "Date"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class[]{
                 java.lang.Boolean.class, java.lang.String.class
             };
 
@@ -108,18 +108,10 @@ public class AdvisingReport extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTextArea1);
 
         jButton1.setText("Refresh");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         jButton2.setText("Add Advising Info");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -166,7 +158,7 @@ public class AdvisingReport extends javax.swing.JPanel {
                 "Academic Advising", "Date"
             }
         ) {
-            Class[] types = new Class [] {
+            final Class[] types = new Class[]{
                 java.lang.Boolean.class, java.lang.String.class
             };
 
@@ -177,10 +169,8 @@ public class AdvisingReport extends javax.swing.JPanel {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(MainFrame.students.getNames()));
         jDialog1.setBounds(100,100,450,250);
         jDialog1.setVisible(true);
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -198,18 +188,5 @@ public class AdvisingReport extends javax.swing.JPanel {
         }
         MainFrame.students.saveInfo();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JDialog jDialog1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }
