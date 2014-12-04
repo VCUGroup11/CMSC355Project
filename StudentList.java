@@ -1,8 +1,7 @@
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
+import javax.swing.JOptionPane;
 
-@SuppressWarnings("NullableProblems")
 public class StudentList implements Set<Student> {
 
     public static final String DEFAULT_FILENAME = "studentList.csv";
@@ -13,6 +12,10 @@ public class StudentList implements Set<Student> {
         this.setStudentList(new HashSet<>());
     }
 
+    public StudentList(Set<Student> list) {
+        this.setStudentList(new HashSet<Student>(list));
+    }
+
     public StudentList(File file) {
         this.setStudentList(FileIO.readFile(file));
     }
@@ -21,16 +24,35 @@ public class StudentList implements Set<Student> {
         return studentList;
     }
 
-    void setStudentList(Set<Student> studentList) {
+    public void setStudentList(Set<Student> studentList) {
         this.studentList = studentList;
     }
 
-    /**
-     * Safe way to add student objects to the list
-     *
-     * @param s Student to be added
-     * @return Returns true if student was successfully added
-     */
+    public void addStudent(Student s) {
+        System.out.println("Adding student: " + s.toString() + " \nto the list of students");
+        if (this.containsStudent(s)) {
+            System.out.println("Student: " + s.toString() + " \nIs already in the list of students");
+            return;
+        } else {
+            this.add(s);
+        }
+        System.out.println("Student: " + s.toString() + " \nhas been added to the list of students");
+    }//End addStudent()
+
+    public void addStudent(File importFile) {
+        this.addAll(FileIO.readFile(importFile));
+    }//End addStudent()
+
+    public void removeStudent(Student s) {
+        System.out.println("Removing student: " + s.toString() + " \nfrom the list of students");
+        if (this.contains(s)) {
+            this.remove(s);
+            System.out.println("Student: " + s.toString() + " \nwas removed from the list of students");
+        } else {
+            System.out.println("Student: " + s.toString() + " \nwas not found in the list of students");
+        }
+    }//End removeStudent()
+
     @Override
     public boolean add(Student s) {
         if (this.containsStudent(s)) {
@@ -43,13 +65,23 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean addAll(Collection<? extends Student> s) {
-        this.studentList.addAll(s.stream().filter(s1 -> !this.containsStudent(s1)).collect(Collectors.toList()));
+        for (Student s1 : s) {
+            if (!this.containsStudent(s1)) {
+                this.studentList.add(s1);
+            }
+        }
         return this.studentList.containsAll(s);
     }
 
     @Override
     public void clear() {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove all students from the list?\nWARNING:  THIS CANNOT BE UNDONE!!!!",
+                "Remove All Students From List?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.clear();
+        }
     }
 
     @Override
@@ -57,7 +89,7 @@ public class StudentList implements Set<Student> {
         return this.studentList.contains(s);
     }
 
-    boolean containsStudent(Student s) {
+    public boolean containsStudent(Student s) {
         for (Student s1 : this) {
             if ((s.getFirstName().equalsIgnoreCase(s1.getFirstName())) && (s.getLastName().equalsIgnoreCase(s1.getLastName())) && (s.getIdNum().equalsIgnoreCase(s1.getIdNum()))) {
                 return true;
@@ -83,13 +115,26 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean remove(Object s) {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove this student from the list?\n" + s.toString(),
+                "Remove Student?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.remove(s);
+        }
+        
         return !this.contains(s);
     }
 
     @Override
     public boolean removeAll(Collection<?> s) {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove all students from the list?\nWARNING:  THIS CANNOT BE UNDONE!!!!",
+                "Remove All Students From List?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.removeAll(s);
+        }
         return !this.containsAll(s);
     }
 
@@ -134,8 +179,13 @@ public class StudentList implements Set<Student> {
         return result;
     }
 
+    /**
+     *
+     * @param studentName "LastName, FirstName"
+     * @return
+     */
     public String getGradReport(String studentName) {
-        if (studentName.toLowerCase().contains("all")) {
+        if (studentName.contains("All") || studentName.contains("all")) {
             return this.getGradReport();
         }
         return this.findStudent(studentName).getGradReport();
@@ -192,7 +242,7 @@ public class StudentList implements Set<Student> {
     public String[] getGradNames() {
         Student[] n = new Student[this.getStudentList().size()];
         n = this.getStudentList().toArray(n);
-        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<String>();
         names.add("All Students");
         for (Student s : n) {
             if (!(s.getSubDate().equalsIgnoreCase(""))) {
@@ -207,7 +257,7 @@ public class StudentList implements Set<Student> {
     public String[] getNames() {
         Student[] n = new Student[this.getStudentList().size()];
         n = this.getStudentList().toArray(n);
-        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> names = new ArrayList<String>();
         for (Student s : n) {
             names.add(s.getLastName() + ", " + s.getFirstName());
         }
@@ -216,7 +266,7 @@ public class StudentList implements Set<Student> {
         return temp;
     }
 
-    void saveInfo(String fileName) {
+    public void saveInfo(String fileName) {
         FileIO.writeFile(fileName, this);
     }
 
@@ -230,7 +280,7 @@ public class StudentList implements Set<Student> {
 
     // Remove student from set and rewrite file without student
     // (Deletes student from memory AND file)
-    void deleteStudent(Student student, String fileName) {
+    public void deleteStudent(Student student, String fileName) {
         remove(student);
         saveInfo(fileName);
     }
@@ -241,5 +291,9 @@ public class StudentList implements Set<Student> {
      */
     public void deleteStudent(String name) {
         this.deleteStudent(this.findStudent(name), DEFAULT_FILENAME);
+    }
+
+    public void gradApp(String name, float mGPA, float tGPA, int mCrd, int uCrd, int tCrd) {
+        this.findStudent(name).gradApp(mGPA, tGPA, mCrd, uCrd, tCrd);
     }
 }
