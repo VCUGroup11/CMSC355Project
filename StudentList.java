@@ -1,7 +1,6 @@
 import javax.swing.*;
 import java.io.File;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class StudentList implements Set<Student> {
 
@@ -37,7 +36,7 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean addAll(Collection<? extends Student> s) {
-        this.studentList.addAll(s.stream().filter(s1 -> !this.containsStudent(s1)).collect(Collectors.toList()));
+        this.studentList.addAll(s);
         return this.studentList.containsAll(s);
     }
 
