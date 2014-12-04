@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.*;
+import javax.swing.JOptionPane;
 
 public class StudentList implements Set<Student> {
 
@@ -74,7 +75,13 @@ public class StudentList implements Set<Student> {
 
     @Override
     public void clear() {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove all students from the list?\nWARNING:  THIS CANNOT BE UNDONE!!!!",
+                "Remove All Students From List?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.clear();
+        }
     }
 
     @Override
@@ -108,13 +115,26 @@ public class StudentList implements Set<Student> {
 
     @Override
     public boolean remove(Object s) {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove this student from the list?\n" + s.toString(),
+                "Remove Student?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.remove(s);
+        }
+        
         return !this.contains(s);
     }
 
     @Override
     public boolean removeAll(Collection<?> s) {
+        int i = javax.swing.JOptionPane.showConfirmDialog(null,
+                "Would you like to remove all students from the list?\nWARNING:  THIS CANNOT BE UNDONE!!!!",
+                "Remove All Students From List?",
+                JOptionPane.YES_NO_OPTION);
+        if (i == JOptionPane.YES_OPTION) {
         this.studentList.removeAll(s);
+        }
         return !this.containsAll(s);
     }
 
