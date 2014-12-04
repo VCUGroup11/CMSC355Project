@@ -1,5 +1,7 @@
 import java.util.Date;
-
+/**
+ * the Student class. Holds all the student's information and has a method to get the grad report for the student.
+ */
 public class Student {
 
     private String firstName, lastName, idNum, grade, advDate, subDate;

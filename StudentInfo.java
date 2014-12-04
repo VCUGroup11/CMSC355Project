@@ -1,13 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /**
- *
- * @author shadowx
+ * This is the student information tab. It displays the basic information of all the students, lets you add students, and lets you edit the basic information of the students(name, ID, grade).
  */
 class StudentInfo extends javax.swing.JPanel {
 
@@ -18,7 +10,7 @@ class StudentInfo extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
 
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 
     /**
      * Creates new form StudentInfo

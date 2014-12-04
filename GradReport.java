@@ -6,8 +6,7 @@
 
 
 /**
- *
- * @author shadowx
+ * The grad report tab. This tab allows you to view the graduation report and apply to graduate.
  */
 class GradReport extends javax.swing.JPanel {
 
@@ -180,37 +179,6 @@ class GradReport extends javax.swing.JPanel {
                 return types[columnIndex];
             }
         });
-
-        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
-        jDialog1.getContentPane().setLayout(jDialog1Layout);
-        jDialog1Layout.setHorizontalGroup(
-                jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jDialog1Layout.createSequentialGroup()
-                                .addGroup(jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                                                .addGap(20, 20, 20)
-                                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jDialog1Layout.createSequentialGroup()
-                                                .addContainerGap(245, Short.MAX_VALUE)
-                                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(206, 206, 206)))
-                                .addContainerGap(20, Short.MAX_VALUE))
-                        .addGroup(jDialog1Layout.createSequentialGroup()
-                                .addGap(206, 206, 206)
-                                .addComponent(jButton4)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jDialog1Layout.setVerticalGroup(
-                jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialog1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(32, 32, 32)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                                .addComponent(jButton4)
-                                .addContainerGap())
-        );
         jDialog1.setTitle("Apply for graduation");
         jDialog1.setVisible(true);
         jDialog1.setBounds(100, 100, 500, 300);
@@ -233,5 +201,5 @@ class GradReport extends javax.swing.JPanel {
 
         jDialog1.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

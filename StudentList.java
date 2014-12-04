@@ -1,3 +1,6 @@
+/**
+ * This is a container for students. Based on the Set interface. 
+ */
 import javax.swing.*;
 import java.io.File;
 import java.util.*;

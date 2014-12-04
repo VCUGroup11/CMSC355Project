@@ -8,8 +8,7 @@ import java.awt.*;
 
 
 /**
- *
- * @author shadowx
+ * The advising report tab. From here you can view the advising report and edit the advising information.
  */
 class AdvisingReport extends javax.swing.JPanel {
 
@@ -188,5 +187,5 @@ class AdvisingReport extends javax.swing.JPanel {
         }
         MainFrame.students.saveInfo();
     }//GEN-LAST:event_jButton3ActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

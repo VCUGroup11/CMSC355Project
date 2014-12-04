@@ -4,8 +4,7 @@
  * and open the template in the editor.
  */
 /**
- *
- * @author shadowx
+ * The popout window for adding a student
  */
 class AddStudentFrame extends javax.swing.JFrame {
 
@@ -79,5 +78,5 @@ class AddStudentFrame extends javax.swing.JFrame {
         pack();
     }
 
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }

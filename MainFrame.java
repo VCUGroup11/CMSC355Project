@@ -14,8 +14,7 @@ import java.nio.file.Files;
 
 
 /**
- *
- * @author shadowx
+ * The main frame. 
  */
 class MainFrame extends javax.swing.JFrame {
     public static final StudentList students = new StudentList();
@@ -80,7 +79,7 @@ class MainFrame extends javax.swing.JFrame {
             students.addAll(new StudentList(new File(StudentList.DEFAULT_FILENAME)));
         }
     }
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 
     private static void closeList() {
         //Ask if user wants to commit
